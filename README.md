@@ -1,2 +1,15 @@
 # Ustc_Lost_And_Found
 中科大的失物招领网站
+
+
+### 前端提交说明：
+
+如果你是前端，请把HTML文件塞到template这个文件夹中，JS、CSS文件塞到static这个文件夹中；如果你需要引用本地文件，格式是：
+```html
+	<link rel="stylesheet" type="text/css" href="../static/sty.css">
+```
+javascript类似。
+
+### 怎么运行此项目
+
+一句话说不清楚，你百度亿下就好了。
