@@ -37,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'lf'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',   #最后这个东西是需要加上的
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -84,7 +85,7 @@ DATABASES = {
         'PASSWORD': '123456', # 数据库密码
     }  
 }
-
+#这些东西在部署的时候需要改动
 
 
 # Password validation
@@ -124,7 +125,12 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+'''
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-) 
+    os.path.join(BASE_DIR, 'media')
+) 这个地方调了很长时间。。。为了访问静态文件，请参考https://stackoverflow.com/questions/53625819/django-media-file-not-found-404
+'''

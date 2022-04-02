@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+	<title>
+		USTC权益柜
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="../static/sty.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body id="MainPage">
+	<div class="Page Title">
+		<ul class="directory">
+			<li class="directory">
+				<a href="http://home.ustc.edu.cn/~erchius_jzy/UIdemo/" class="directory">
+					<div style="float: left;margin-top: 15px;width: auto;">
+						<p style="width:100%;text-align: center;">USTC权益柜</p>
+					</div>
+					<img src="src/icon.jpg" style="height: 80px;float: right;"/>
+				</a>
+			</li>
+			<li class="directory">
+				<a href="Lost/" class="directory">寻物启事</a>
+			</li>
+			<li class="directory">
+				<a href="Found/" class="directory">失物招领</a>
+			</li>
+			<li class="directory">
+				<a href="Report/" class="directory">权益投诉</a>
+			</li>
+			<li class="directory">
+				<a href="Tips/" class="directory">柜君tips</a>
+			</li>
+			<li class="directory">
+				<a href="QA/" class="directory">Q&A</a>
+			</li>
+			<li class="directory">
+				<a href="#" class="directory">我的</a>
+			</li>
+		</ul>
+	</div>
+	<div class="Page Title">
+		<form action="/search" method="POST" target="_blank" accept-charset="UTF-8" name="search" class="search">
+			<div style="width: 20%;float: left;" >
+				<input type="radio" name="LF" value="L"/>寻找失物<br/><br/>
+				<input type="radio" name="LF" value="F"/>找到物品
+			</div>
+			<div style="width: 60%;float: left;">
+				物品名称：<input type="text" name="Name"/><br/><br/>
+				时间：<input type="date" name="date">
+			</div>
+			<input type="submit">
+		</form>
+	</div>
+	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
+		<script type="text/javascript">
+			var div = 1 ;
+			var ul = 2 ;
+			var li = 5 ;
+			var a = 1 ;
+			var p = 2 ;
+			for( var divc = 0 ; divc < div ; divc++ ){
+				document.write("<div class=\"items\">") ;
+				for( var ulc = 0 ; ulc < ul ; ulc++ ){
+					document.write("<ul class=\"items\">") ;
+					for( var lic = 0 ; lic < li ; lic++ ){
+						document.write("<li class=\"items\">") ;
+						for( var ac = 0 ; ac < a ; ac++ ){
+							document.write("<a class=\"items\" id=\"item${ac}\">") ;
+							document.write("<p class=\"half\">这里放文字</p><p class=\"half\">这里放图片</p>") ;
+							document.write("</a>") ;
+						}
+						document.write("</li>") ;
+					}
+					document.write("</ul>") ;
+				}
+				document.write("</div>") ;
+			}
+		</script>
+	</div>
+</body>

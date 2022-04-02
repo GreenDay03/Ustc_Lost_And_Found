@@ -12,15 +12,12 @@ ul.directory{
 	margin-block-start: 0;
 	width: 80%;
 	margin-left: 10%;
-	list-style-type:none;
 	padding:0;
-	overflow:hidden;
-	margin-bottom: 0;
 }
 ul.directory li.directory{
 	display: inline-block;
 	float: left;
-	width: 15%;
+	width: 13%;
 	height: 100%;
 	background-color: #d6d6d6;
 }
@@ -35,7 +32,11 @@ li.directory a.directory{
 	padding-bottom: 30px;
 }
 ul.directory li.directory:first-child{
-	width: 25%;
+	width: 22%;
+}
+ul.directory li.directory:first-child a{
+	padding-top: 0;
+	padding-bottom: 0;
 }
 li.directory a.directory:hover{
 	background-color: #c5c5c5;
@@ -55,7 +56,6 @@ ul.items{
 }
 ul.items li.items{
 	height: 300px;
-	width: 100%;
 	background-color: white;
 	margin: 0;
 	border: solid#e7e7e7;
@@ -71,4 +71,13 @@ a.items p.half{
 	width: 49%;
 	text-align: center;
 	padding-top: 140px;
+}
+ul{
+	list-style-type: none;
+}
+form.search{
+	width: 80%;
+	height: 100px;
+	margin-left: 10%;
+	background-color: #e7e7e7;
 }
