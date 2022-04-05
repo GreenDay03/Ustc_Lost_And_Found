@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v#lm86xl8m&7my9sj(kmgz)m#^7@f^u1r2yt)+&)@xr_dc33so'
+SECRET_KEY = '这是一个五十个ASCII字母的字符串，但是我现在不告诉你。'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lf'
+    'lf',
+    'au'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = "au.UstcUser"
 ROOT_URLCONF = 'Ustc_Lost_And_Found.urls'
 
 TEMPLATES = [
@@ -82,7 +84,7 @@ DATABASES = {
         'HOST': '127.0.0.1', # 数据库地址，本机 ip 地址 127.0.0.1 
         'PORT': 3306, # 端口 
         'USER': 'root',  # 数据库用户名
-        'PASSWORD': '123456', # 数据库密码
+        'PASSWORD': '123456', # 数据库密码  
     }  
 }
 #这些东西在部署的时候需要改动
@@ -132,3 +134,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 #    os.path.join(BASE_DIR, 'media')
 ) #这个地方调了很长时间。。。为了访问静态文件，请参考https://stackoverflow.com/questions/53625819/django-media-file-not-found-404
+
+EMAIL_USE_SSL = True # Secure Sockets Layer 安全套接层, 取决于邮件服务器是否开启加密协议
+EMAIL_HOST = 'smtp.163.com'  # 邮件服务器地址
+EMAIL_PORT = 465 # 邮件服务器端口 
+EMAIL_HOST_USER = 'UstcLostAndFound@163.com' # 登陆邮件服务器的账号
+EMAIL_HOST_PASSWORD = '我不告诉你'  # 登陆邮件服务器的密码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # 邮件的发送者
+
+#请注意：上面这个邮箱HOST密码不是真的，也不会上传到github上去。
+#最后部署的时候再填进去就可以就行了
