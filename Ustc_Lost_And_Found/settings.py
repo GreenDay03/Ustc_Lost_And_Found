@@ -127,10 +127,8 @@ USE_TZ = False
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-'''
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'media')
-) 这个地方调了很长时间。。。为了访问静态文件，请参考https://stackoverflow.com/questions/53625819/django-media-file-not-found-404
-'''
+#    os.path.join(BASE_DIR, 'media')
+) #这个地方调了很长时间。。。为了访问静态文件，请参考https://stackoverflow.com/questions/53625819/django-media-file-not-found-404
