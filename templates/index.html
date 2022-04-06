@@ -14,14 +14,15 @@
 	<div class="Page Title">
 		<form action="/search" method="POST" target="_blank" accept-charset="UTF-8" name="search" class="search">
 			<div style="width: 20%;float: left;" >
-				<input type="radio" name="LF" value="L"/>寻找失物<br/><br/>
-				<input type="radio" name="LF" value="F"/>找到物品
+				<input type="radio" name="type" value="L"/>寻找失物<br/><br/>
+				<input type="radio" name="type" value="F"/>找到物品
 			</div>
 			<div style="width: 60%;float: left;">
-				物品名称：<input type="text" name="Name"/><br/><br/>
-				时间：<input type="date" name="date">
+				物品名称：<input type="text" name="name"/><br/>
+				时间：<input type="date" name="date"><br/>
+				地点：<input type="text" name="place"><br/>
 			</div>
-			<input type="submit">
+			<input type="submit" name="点击搜索">
 		</form>
 	</div>
 	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
