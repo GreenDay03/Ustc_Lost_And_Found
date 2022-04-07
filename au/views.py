@@ -10,7 +10,7 @@ from django.contrib import auth
 from django.core.mail import send_mail
 
 class ViewBase(View):
-    def fail(msg=''):
+    def fail(self,msg=''):
         return JsonResponse({
             "result" : "fail",
             "msg" : msg
@@ -18,9 +18,9 @@ class ViewBase(View):
     SUCCESS = JsonResponse({  "result" : "success"   })
 
 
-def check_email(email):
+def check_email(email:str):
     '''禁止注册非妮可邮箱。'''
-    return email.endwith('@mail.ustc.edu.cn') or email.endwith('@ustc.edu.cn')
+    return email.endswith('@mail.ustc.edu.cn') or email.endswith('@ustc.edu.cn')
 
 def check_captcha(email, captcha, auto_del=True):
     '''检查验证码和邮箱匹不匹配。auto_del指验证成功就删掉信息'''
@@ -29,12 +29,22 @@ def check_captcha(email, captcha, auto_del=True):
     except Exception:
         return False
     dic = model_to_dict(info)
-    if dic['end_time'] <= datetime.now() and dic['captcha'] == captcha:   #时间还没过期
+    print(dic['end_time'] >= datetime.now())
+    print(dic['captcha'] == captcha)
+    if dic['end_time'] >= datetime.now() and dic['captcha'] == captcha:   #时间还没过期
         if auto_del:
             info.delete()
         return True
     else:
         return False
+
+def check_password(password:str):
+    '''检查密码是否合法'''
+    if not isinstance(password,str):
+        return False
+    if len(password) < 6 or len(password) > 20:
+        return False
+    return True
 
 class Register(ViewBase):
     '''
@@ -45,7 +55,7 @@ class Register(ViewBase):
         （主要是为了利用系统自带的各种东西，我承认我偷懒了）
     '''
     def post(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return self.fail('您已登录，不能注册')
         captcha = request.POST.get('captcha')
         email = request.POST.get('email')
@@ -54,13 +64,17 @@ class Register(ViewBase):
         username = request.POST.get('username')
         if not check_email(email):
             return self.fail('邮箱不合法')
+        if UstcUser.objects.filter(email=email):
+            return self.fail('这个邮箱已经注册过了')
+        if not check_password(password):
+            return self.fail('密码不合法')
         if not check_captcha(email, captcha):
             return self.fail('验证码不对')
         UstcUser.objects.create_user(username=stu_id,password=password,email=email,first_name=username)
         return self.SUCCESS
 
 class Captcha(ViewBase):
-    def random_str(random_length=6):
+    def random_str(self,random_length=6):
         '''
         生成随机字符串作为验证码
         :param random_length: 字符串长度,默认为6
@@ -99,7 +113,7 @@ class Captcha(ViewBase):
 
 class Login(ViewBase):
     def post(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return self.fail('您已登录')
         try:
             stu_id = request.POST.get('stu_id')
@@ -109,13 +123,13 @@ class Login(ViewBase):
                 auth.login(request, user)
                 return self.SUCCESS
             else:
-                self.fail('用户名或密码错误')
+                return self.fail('用户名或密码错误')
         except Exception:
             return self.fail('用户名或密码错误')
 
 class Logout(ViewBase):
     def post(self, request):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return self.fail('您已登出')
         else:
             auth.logout(request)
@@ -125,13 +139,15 @@ class Logout(ViewBase):
 class Chpwd(ViewBase):
     def post(self, request):
         user = request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return self.fail('您未登录')
         old = request.POST.get('old')
         new = request.POST.get('new')
         if not user.check_password(old):
             return self.fail('原密码不对')
-        user.set_password(password=new)
+        if not check_password(new):
+            return self.fail('密码不合法')
+        user.set_password(new)
         user.save()
         return self.SUCCESS
 
@@ -139,3 +155,47 @@ class Update(ViewBase):
     def post(self, request):
         return self.fail('我还没写好')
 
+class UserQuery(ViewBase):
+    def get(self, request, pk):
+        if not request.user.is_authenticated:
+            return self.fail('您未登录')
+        #stu_id = self.kwargs['stu_id']
+        try:
+            account = UstcUser.objects.get(pk=pk)
+        except:
+            return self.fail('找不到这个用户')
+        ret = {'result' : 'success'}
+        ret['id'] = pk
+        ret['stu_id'] = account.username
+        ret['email'] = account.email
+        ret['mobile'] = account.mobile or '未填写'
+        ret['username'] = account.first_name or '未填写'
+        ret['realname'] = account.last_name or '未填写'
+        ret['qq'] = account.qq or '未填写'
+        ret['avatar'] = account.avatar or '未上传'
+        return JsonResponse(ret)
+
+class MyQuery(UserQuery):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return self.fail('您未登录') 
+        return super().get(request, request.user.id)
+
+class Forget(ViewBase):
+    def post(self, request):
+        email = request.POST.get('email')
+        captcha = request.POST.get('captcha')
+        password = request.POST.get('password')
+        if not check_email(email):
+            return self.fail('邮箱不合法')
+        try:
+            account = UstcUser.objects.get(email=email)
+        except:
+            return self.fail('邮箱还没注册')
+        if not check_password(password):
+            return self.fail('密码不合法')
+        if not check_captcha(email, captcha):
+            return self.fail('验证码不对')
+        account.set_password(password)
+        account.save()
+        return self.SUCCESS

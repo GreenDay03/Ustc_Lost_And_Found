@@ -37,4 +37,4 @@ class UstcUser(AbstractUser):
 class CaptchaInfo(models.Model):
     email = models.EmailField()
     captcha = models.CharField(max_length=6)
-    end_time = models.TimeField()
+    end_time = models.DateTimeField()

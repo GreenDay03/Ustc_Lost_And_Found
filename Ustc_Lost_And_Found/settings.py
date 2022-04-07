@@ -88,7 +88,7 @@ DATABASES = {
     }  
 }
 #这些东西在部署的时候需要改动
-
+LOGIN_URL = '/login/'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -139,7 +139,7 @@ EMAIL_USE_SSL = True # Secure Sockets Layer 安全套接层, 取决于邮件服�
 EMAIL_HOST = 'smtp.163.com'  # 邮件服务器地址
 EMAIL_PORT = 465 # 邮件服务器端口 
 EMAIL_HOST_USER = 'UstcLostAndFound@163.com' # 登陆邮件服务器的账号
-EMAIL_HOST_PASSWORD = '我不告诉你'  # 登陆邮件服务器的密码
+EMAIL_HOST_PASSWORD = 'KGGMOVJVCJKIXALC'  # 登陆邮件服务器的密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # 邮件的发送者
 
 #请注意：上面这个邮箱HOST密码不是真的，也不会上传到github上去。

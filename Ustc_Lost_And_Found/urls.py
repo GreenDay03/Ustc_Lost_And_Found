@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf.urls import url
 from django.views.static import serve
-
+from django.contrib.auth import views as auth_view
 from . import settings, views
 
 urlpatterns = [
@@ -27,7 +27,8 @@ urlpatterns = [
     path('', lambda request: redirect('lf/')),
     path('lf/', views.index),
     path('api/lf/', include('lf.urls')),
-    path('api/auth/', include('au.urls'))
+    path('api/auth/', include('au.urls')),
+    path('login/', auth_view.LoginView.as_view(template_name='../templates/login.html'))
     #url(r'^static/(?P<path>.*)$',serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
