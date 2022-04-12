@@ -1,0 +1,1 @@
+document.write('<div class="Page" style="background-color: #f8f8f8;position: fixed;" id="pagebuttom"><p style="width:100%;text-align: center;"><a href="https://pad.degrowth.net/aNWERPt7SE6ezfPST4Ck9A">网站使用说明</a></p><p style="width: 100%;text-align: center;"><a href="mailto:erchius_jzy@mail.ustc.edu.cn">联系我们</a></p></div>')
