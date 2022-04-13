@@ -13,3 +13,8 @@ javascript类似。
 ### 怎么运行此项目
 
 一句话说不清楚，你百度亿下就好了。
+
+### 前端提交补充说明
+
+前端目前的结构是：每个动态页面都作为templates文件夹下的一个目录，如this.com/对应index.html，this.com/lf/对应lf.html
+
