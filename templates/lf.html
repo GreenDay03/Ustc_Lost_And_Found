@@ -24,7 +24,7 @@
 			<li class="directory"><a href="../tips/" class="directory">柜君tips</a></li>
 			<li class="directory"><a href="../qa/" class="directory">Q&A</a></li>
 			<li class="directory"><a href="../user" class="directory">我的</a></li>
-			<li class="directory"><button class="directory" id="logout">退出登陆</button></li>
+			<li class="directory"><a class="directory" id="logout">退出登陆</a></li>
 		</ul>
 	</div>
 	<div class="Page">
@@ -78,8 +78,9 @@
 					})
 				});
 			});
-	</script>
-<!-- 			$(document).ready(function(){
+
+
+ 			$(document).ready(function(){
 				$("#logout").click(function(){
 					$.ajax({
 						type: "POST",
@@ -95,13 +96,14 @@
 					});
 				});
 			});
+
+
 		</script>
- -->	</div>
-	<div id="issue" class="item">
-		<p style="text-align: center">
-			<a href="release/" class="main"> 我要发贴 </a>
-		</p>
-<!-- >>>>>>> a4912948aaeb70b886ce55e152a53b5be2a2f30b -->
+	</div>
+	<div class="Page" id="issue" class="item">
+		<div style="width: 80%;margin: 0 10%;overflow: hidden;">
+			<a href="./lf_release/" class="main" style="display: block;background-color: #eeeeee;width: 100%;text-decoration: none;padding: 20px 0 20px 0;"><p align="center" style="color: #ffffff;">我要发贴</p></a>
+		</div>
 	</div>
 	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
 		<script type="text/javascript" src="../static/mainpage.js"></script>
