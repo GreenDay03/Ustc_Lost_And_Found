@@ -1,6 +1,4 @@
 from django.db import models
-from priority import DeadlockError
-
 # Create your models here.
 
 class LFPost(models.Model):

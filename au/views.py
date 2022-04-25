@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 import random
 from django.forms import model_to_dict
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.base import View
 from .models import *
 from django.core.files.storage import default_storage
@@ -118,6 +118,7 @@ class Login(ViewBase):
         try:
             stu_id = request.POST.get('stu_id')
             password = request.POST.get('password')
+            print(stu_id,password)
             user = auth.authenticate(username=stu_id, password=password)
             if user:
                 auth.login(request, user)

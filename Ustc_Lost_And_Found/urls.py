@@ -25,9 +25,15 @@ from . import settings, views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda request: redirect('lf/')),
-    path('lf/', views.index),
+    path('lf/', views.mainpage),
+    path('lf/release/', views.lf_release),
+    path('report/', views.report),
+    path('tips/', views.tips),
+    path('qa/', views.qa),
+    path('user/', views.user),
     path('api/lf/', include('lf.urls')),
     path('api/auth/', include('au.urls')),
+    path('api/qa/', include('qa.urls')),
     path('login/', auth_view.LoginView.as_view(template_name='../templates/login.html'))
     #url(r'^static/(?P<path>.*)$',serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

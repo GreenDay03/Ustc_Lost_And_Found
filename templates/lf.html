@@ -11,7 +11,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body id="MainPage">
-	<script type="text/javascript" src="../static/directory.js"></script>
+	<!-- script type="text/javascript" src="../static/directory.js"></script-->
+	<div class="Page Title">
+		<ul class="directory">
+			<li class="directory"><a href="#" class="directory">
+					<div style="float: left;margin-top: 15px;width: auto;">
+						<p style="width:100%;text-align: center;">USTC权益柜</p>
+					</div><img src="../static/icon.jpg" style="height: 80px;float: right;" />
+				</a></li>
+			<li class="directory"><a href="../lf/" class="directory">寻物失物</a></li>
+			<li class="directory"><a href="../report/" class="directory">权益投诉</a></li>
+			<li class="directory"><a href="../tips/" class="directory">柜君tips</a></li>
+			<li class="directory"><a href="../qa/" class="directory">Q&A</a></li>
+			<li class="directory"><a href="../user" class="directory">我的</a></li>
+			<li class="directory"><button class="directory" id="logout">退出登陆</button></li>
+		</ul>
+	</div>
 	<div class="Page">
 		<form accept-charset="UTF-8" name="search" class="search" id="search">
 			<div style="width: 20%;float: left;" >
@@ -35,9 +50,29 @@
 					e.preventDefault();
 				});
 			});
-	</script>
+			$(document).ready(function(){
+				$("#logout").click(function(){
+					$.ajax({
+						type: "POST",
+						url: "../api/auth/logout/",
+						data: {},
+						dataType: "JSON",
+						success: function(result) {
+							$(location).attr('href', '/lf/');
+						},
+						error: function(result) {
+							alert('发生错误');
+						}
+					});
+				});
+			});
+		</script>
 	</div>
-	<div id="log"></div>
+	<div id="issue" class="item">
+		<p style="text-align: center">
+			<a href="release/" class="main"> 我要发贴 </a>
+		</p>
+	</div>
 	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
 		<script type="text/javascript" src="../static/mainpage.js"></script>
 	</div>
