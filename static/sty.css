@@ -82,3 +82,7 @@ form.search{
 	margin-left: 10%;
 	background-color: #e7e7e7;
 }
+form div{
+	display: inline-block;
+	float: left;
+}

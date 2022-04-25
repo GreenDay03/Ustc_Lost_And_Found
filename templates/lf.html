@@ -14,27 +14,56 @@
 	<script type="text/javascript" src="../static/directory.js"></script>
 	<div class="Page">
 		<form accept-charset="UTF-8" name="search" class="search" id="search">
-			<div style="width: 20%;float: left;" >
+			<div style="padding: 0 30px 0 30px;" >
 				<input type="radio" name="type" value="L"/>寻找失物<br/><br/>
 				<input type="radio" name="type" value="F"/>找到物品
 			</div>
-			<div style="width: 60%;float: left;">
+			<div style="padding: 0 30px 0 30px;">
 				物品名称：<input type="text" name="name"/><br/>
-				时间：<input type="date" name="date"><br/>
+				时间范围：<div style="float: right;">最早<input type="date" name="date_old"/></div><br/>
+				<div style="float: right;">最晚<input type="date" name="date_new"/></div>
+			</div>
+			<div style="padding: 0 30px 0 30px;">
 				地点：<input type="text" name="place"><br/>
+				标题：<input type="text" name="title">
 			</div>
 			<input type="submit" name="submit" value="搜索一下">
 		</form>
 		<script type="text/javascript">
+
+			var pagenum = 1 ;
+			var blogs = [] ;
+			var redata ;
+
 			$(function () {
-				$('form').on('submit',function (e) {
-					console.log($('input[name=type]').val())
-					console.log($('input[name=name]').val())
-					console.log($('input[name=date]').val())
-					console.log($('input[name=place').val())
+				$("form").on("submit",function (e) {
 					e.preventDefault();
+					let type = $("input[name=type]").val() ;
+					let titlev = $("input[name=title]").val() ;
+					let dateoldv = $("input[name=date_old]").val();
+					let datenewv = $("input[name=date_new]").val();
+					let placev = $("input[name=place").val() ;
+					let namev = $("input[name=name]").val() ;
+					$.get( "../api/lf/list" , {
+						"title" : titlev ,
+						"date_old" : dateoldv ,
+						"date_new" : datenewv ,
+						"place" : placev ,
+						"name" : namev ,
+						"page" : pagenum ,
+						"type" : type 
+					}, 
+					function( data ){
+						if( data.result != "success")
+						for( i = 0 ; i < data.data.length ; i++ ){
+							blogs.push( data.data[i] ) ;
+						}
+						showblogs( blogs ) ;
+						redata = data ;
+					})
 				});
 			});
+
 	</script>
 	</div>
 	<div id="log"></div>
