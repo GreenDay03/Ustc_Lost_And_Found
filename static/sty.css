@@ -78,11 +78,14 @@ ul{
 }
 form.search{
 	width: 80%;
-	height: 100px;
+	height: 120px;
 	margin-left: 10%;
 	background-color: #e7e7e7;
 }
 form div{
 	display: inline-block;
 	float: left;
+}
+#link_release:hover{
+	background-color: #ffffff;
 }
