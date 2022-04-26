@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda request: redirect('lf/')),
     path('lf/', views.mainpage),
-    path('lf/release/', views.lf_release),
+    path('lf/lf_release/', views.lf_release),
     path('report/', views.report),
     path('tips/', views.tips),
     path('qa/', views.qa),

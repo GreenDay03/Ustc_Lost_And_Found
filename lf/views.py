@@ -45,7 +45,11 @@ class List(ViewBase):
         if request.GET.get('name'):
             para['name'] = request.GET.get('name')
         para['type'] = request.GET.get('type') or 'F'
-        page = request.GET.get('page') or 1
+        try:
+            page = request.GET.get('page') or 1
+            page = int(page)
+        except Exception:
+            return self.fail('页数格式不对')
         query = LFPost.objects.filter(**para).order_by('-time') #按照时间降序排列所有查询
         tot = (query.count() + page - 1) // page
         result['total_page'] = tot
