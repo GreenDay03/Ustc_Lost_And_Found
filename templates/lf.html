@@ -50,6 +50,9 @@
 			var blogs = [] ;
 			var redata ;
 
+			function showblogs(blogs) {
+				//需要填充
+			}
 			$(function () {
 				$("form").on("submit",function (e) {
 					e.preventDefault();
@@ -75,6 +78,7 @@
 						}
 						showblogs( blogs ) ;
 						redata = data ;
+						//console.log(redata)
 					})
 				});
 			});
