@@ -10,7 +10,7 @@ for( var divc = 0 ; divc < div ; divc++ ){
 		for( var lic = 0 ; lic < li ; lic++ ){
 			document.write("<li class=\"items\">") ;
 			for( var ac = 0 ; ac < a ; ac++ ){
-				document.write("<a class=\"items\" id=\"item${ac}\">") ;
+				document.write('<a class="items" id="item'+(lic+ulc*li)+'">') ;
 				document.write("<p class=\"half\">这里放文字</p><p class=\"half\">这里放图片</p>") ;
 				document.write("</a>") ;
 			}
