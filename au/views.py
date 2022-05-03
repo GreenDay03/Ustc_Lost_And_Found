@@ -116,6 +116,7 @@ class Login(ViewBase):
         if request.user.is_authenticated:
             return self.fail('您已登录')
         try:
+            print(request.POST)
             stu_id = request.POST.get('stu_id')
             password = request.POST.get('password')
             print(stu_id,password)

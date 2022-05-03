@@ -1,43 +1,145 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Login</title>
-    <!--引入本地css & js-->
-    <link rel="stylesheet" href="../static/sty.css"/>
-  </head>
-  <body>
-    <div class="container">
-      <form class="form-horizontal" action="/api/auth/login/" method="post">
-        {% csrf_token %}
-        <div class="control-group">
-          <label class="control-label" contenteditable="true" for="inputUser">学号</label>
-          <div class="controls">
-            <input name="stu_id" placeholder="User" type="text" value="" />
-          </div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="x-ua-compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>
+        Login - 登录
+    </title>
+    <script src="../static/js/jquery-2.2.1.min.js"></script>
+    <script src="../static/js/mzui_2.js"></script>
+    <link href="../static/mzui.min.css" rel="stylesheet">
+    <script src="../static/js/zepto.min.js"></script>
+    <style>
+        .vaptcha-init-main {
+            display: table;
+            width: 100%;
+            height: 100%;
+            background-color: #EEEEEE;
+        }
+
+        ​ .vaptcha-init-loading {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center
+        }
+
+        ​ .vaptcha-init-loading>a {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: none;
+        }
+
+        ​ .vaptcha-init-loading>a img {
+            vertical-align: middle
+        }
+
+        ​ .vaptcha-init-loading .vaptcha-text {
+            font-family: sans-serif;
+            font-size: 12px;
+            color: #CCCCCC;
+            vertical-align: middle
+        }
+    </style>
+    <style>
+        .footer {
+            text-align: center;
+            color: #999;
+            font: 13px/28px "Microsoft YaHei", 微软雅黑;
+            height: 135px;
+            width: 100%;
+            overflow: hidden;
+            display: block;
+        }
+
+        .footer a {
+            color: #999;
+        }
+
+        .footer a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="../static/js/polite.js"></script>
+</head>
+
+<body style="font-family: 微软雅黑; padding: 0px; margin: 0px;" class="can-scroll">
+    <form method="post" action="/api/auth/login/" id="form1">
+        <div id="partial" class="container display fade in" data-find="_3" data-display-name="navs"
+            style="padding-right: 0px; padding-left: 0px;">
+            <div class="section" style="margin-bottom: 0px;">
+                <div class="heading">
+                    <div class="avatar circle primary"><i class="icon-home"></i></div>
+                    <div class="title"><strong>USTC权益柜</strong></div>
+                </div>
+            </div>
+            <section class="section">
+                <div id="login">
+                    <div class="heading">
+                        <div class="title"><strong>登 录</strong></div>
+                    </div>
+                    <div class="box">
+                        <div class="control has-label-left has-icon-right">
+                            <input name="stu_id" type="text" id="txtId" class="input" placeholder="学号"><label for=""><i
+                                    class="icon-user"></i></label>
+                        </div>
+                        <div class="control has-label-left has-icon-right">
+                            <input name="password" type="password" id="txtPwd" class="input" placeholder="密码"><label
+                                for=""><i class="icon-unlock-alt"></i></label>
+                        </div>
+                        <div class="control has-label-left has-icon-right">
+                            <p class="help-text">登录使用即表示您已阅读并接受<a href="https://www.hadsky.com/agreement.html?chkcsrfval=2371ca600d787f8e4e68aaf691d0d56c&name=%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6%E6%9D%83%E7%9B%8A%E6%9F%9C&alias=%E6%9D%83%E7%9B%8A%E6%9F%9C"
+                                    target="_blank" style="color: blue;">《用户使用协议》及 《隐私协议》 </a></p>
+                        </div>
+                        <button type="submit" onclick="Login();" id="btnLogin"
+                            class="btn primary" style="width: 100%;"> 登陆</button>
+    </form>
+                        <button type="button" class="btn text-primary" style="width: 100%; margin-top: 5px;"
+                            onclick="$(location).attr('href', '/register/');">没有账号？点此去注册</button>
+                        <button type="button" class="btn text-primary" style="width: 100%; margin-top: 5px;"
+                            onclick="$(location).attr('href', '/forget/');">找回密码</button>
+                    </div>
+                </div>
+            </section>
+            <div class="footer">
+                <center style="font-size: 12px;">
+                    <p> USTC权益柜 CopyRight</p>
+                </center>
+            </div>
         </div>
-        <div class="control-group">
-          <label class="control-label" contenteditable="true" for="inputPassword">密码</label>
-          <div class="controls">
-            <input name="password" placeholder="Password" type="password" value="" />
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <label class="checkbox" contenteditable="true">
-            <input type="checkbox" /> Remember me </label>
-            <button class="btn" contenteditable="true" type="submit">登陆</button>
-            <span style="color:red;"> {{ status }}</span>
-          </div>
-        </div>
-      </form>
-    </div>
-    <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
-  </body>
+        <!--script src="../static/js/base64.js"></script-->
+        <script src="../static/js/jquery-2.2.js"></script>
+</body>
+
+<script>
+$(document).ready(function(){
+	$("form").on("submit",function (e) {
+		e.preventDefault();
+		let stu_id = $("input[name=stu_id]").val();
+		let password = $("input[name=password]").val();
+		$.post( "../api/auth/login/" , {
+			"stu_id" : stu_id ,
+			"password" : password
+		},
+		function(data){
+			if( data.result != "success") {
+                alert(data.msg)
+                return ;
+            } else {
+                $(location).attr('href', '/lf/');
+            }
+		})
+	});
+});
+</script>
+
 </html>

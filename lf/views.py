@@ -163,3 +163,9 @@ class Reply(ViewBase):
             LFReply(**para).save()
         except Exception:
             return self.fail('缺少必要参数id或格式不对')
+
+class LfQuery(ViewBase):
+    def get(self, request, pk):
+        if not request.user.is_authenticated:
+            return self.fail('您未登录')
+        return render(request, 'lf.html')

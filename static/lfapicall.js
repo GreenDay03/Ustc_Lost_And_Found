@@ -5,8 +5,8 @@ var redata ;
 function showblogs( blogsarr ) {
 	let l = blogsarr.length ;
 	for( let i = 0 ; i < l ; i++ ){
-		document.getElementsById('item'+i).innerHTML = 
-		`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
+		document.getElementById('item'+i).innerHTML = 
+		`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
 	}
 }
 $(function () {

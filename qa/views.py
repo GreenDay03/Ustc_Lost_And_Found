@@ -29,6 +29,7 @@ class List(ViewBase):
         }
         para = {}
         page = request.GET.get('page') or 1
+        para['type'] = request.GET.get('type') or 'Q'
         query = Qa.objects.filter(**para).order_by('-top','-time') #按照时间降序排列所有查询
         tot = (query.count() + page - 1) // page
         result['total_page'] = tot
@@ -47,9 +48,12 @@ class Release(ViewBase):
                 'a' : request.POST.get('a'),
                 'top' : bool(request.POST.get('top')),
                 'time' : datetime.now(),
+                'type' : request.POST.get('type')
             }
             if not (para['q'] and para['a']):
                 return self.fail('缺少必要参数')    #这三个字段不让为空
+            if para['type'] not in ['Q', 'T']:
+                return self.fali('type的格式不对！')
             item = Qa(**para)
             item.save()
             return JsonResponse({
