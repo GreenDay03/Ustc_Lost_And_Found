@@ -14,5 +14,6 @@ urlpatterns = [
     path('chpwd/', Chpwd.as_view()),
     path('update/', Update.as_view()),
     re_path('^user/(?P<pk>.*)$', UserQuery.as_view()),
-    path('me/', MyQuery.as_view())
+    path('me/', MyQuery.as_view()),
+    path('forget/', Forget.as_view())
 ]

@@ -81,7 +81,7 @@ class Captcha(ViewBase):
         :return: 随机字符串
         '''
         string = ''
-        chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789@$#_%?'
+        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         length = len(chars) - 1
         # random = Random()
         # 设置循环每次取一个字符用来生成随机数
@@ -98,8 +98,7 @@ class Captcha(ViewBase):
         captcha = self.random_str()
         send_mail(
             '中科大权益柜验证码',
-            f'同学你好：\n\t感谢你使用中科大权益柜。你的验证码是：{captcha}。\
-            请您在10分钟内完成验证。谢谢。\n\t中科大权益柜项目组。',
+            f'同学你好：\n\t感谢你使用中科大权益柜。你的验证码是：{captcha}。请您在10分钟内完成验证。谢谢。\n\t中科大权益柜项目组。',
             None,
             [email]
         )

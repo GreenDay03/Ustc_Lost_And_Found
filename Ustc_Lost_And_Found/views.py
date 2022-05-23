@@ -25,3 +25,9 @@ def qa(request):
 @login_required
 def user(request):
     return render(request, 'user.html')    
+
+def register(request):
+    return render(request, 'register.html')
+
+def forget(request):
+    return render(request, 'forget.html')
