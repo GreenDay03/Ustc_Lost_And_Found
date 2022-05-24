@@ -1,1 +1,224 @@
-<h1> User </h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的信息</title>
+    <link rel="stylesheet" href="../static/sty.css">
+    <script src="../static/directory.js"> </script>
+    <script type="text/javascript" src="../static/js/jquery-2.2.1.min.js"> </script>
+    <style type="text/css">
+        .Content-Main {
+            max-width: 500px;
+            margin: auto;
+            border: none;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-shadow: 1px 1px 1px #444;
+            color: #D3D3D3;
+            background: #555;
+        }
+
+        .Content-Main h1 {
+            padding: 8px 0px 40px 10px;
+            display: block;
+            border-bottom: 1px solid #444;
+        }
+
+        .text1 {
+            margin-left: 3px;
+        }
+
+        .Content-Main label {
+            margin: 0px 0px 5px;
+            display: block;
+        }
+
+        .fileInputContainer {
+            height: 99px;
+            width: 99px;
+            margin: 20px 20px 20px 20px;
+            border: none;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .fileInput {
+            height: 106px;
+            border: none;
+            font-size: 300px;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            cursor: pointer;
+            position: absolute;
+        }
+
+        .Content-Main label>span {
+            width: 20%;
+            float: left;
+            text-align: right;
+            padding-right: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .Content-Main input[type="text"],
+        .Content-Main input[type="email"],
+        .Content-Main textarea {
+            height: 25px;
+            width: 70%;
+            line-height: 15px;
+            padding: 5px 0px 5px 5px;
+            margin-bottom: 16px;
+            margin-right: 6px;
+            margin-top: 2px;
+            border: none;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            outline: 0 none;
+            background: #dfdfdf;
+            color: #525252;
+        }
+
+        .Content-Main textarea {
+            height: 100px;
+            width: 70%;
+            padding: 5px 0px 0px 5px;
+        }
+
+        .Content-Main .button {
+            padding: 8px 24px 8px 24px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px #FFE477;
+            box-shadow: 1px 1px 1px #3D3D3D;
+            -moz-box-shadow: 1px 1px 1px #3D3D3D;
+            -webkit-box-shadow: 1px 1px 1px #3D3D3D;
+            color: #585858;
+            background: #f6ff0a;
+        }
+
+        .Content-Main .button:hover {
+            color: #333;
+            background-color: #EBEBEB;
+        }
+
+        .ButtonLeft {
+            text-align: left;
+            float: left;
+        }
+
+        .ButtonRight {
+            text-align: right;
+            float: right;
+        }
+
+        .ButtonLeft .button {
+            background-color: orange;
+        }
+
+        .ButtonRight .button {
+            background-color: skyblue;
+        }
+
+        .Content-Main input[type="email"] {
+            background: darkgray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Content-Main">
+        <h1>查看及修改个人信息</h1>
+        <div class="fileInputContainer">
+            <input class="fileInput" id="" type="file" name="">
+            <img src="../static/icon.jpg" style="height: 30pt; width: 30pt;"> </img>
+        </div>
+        <label>
+            <span>用户ID</span>
+            <input type="email" id="id" placeholder="用户ID" readonly="readonly">
+        </label>
+        <label>
+            <span>科大邮箱</span>
+            <input type="email" id="email" placeholder="科大邮箱" readonly="readonly">
+        </label>
+        <label>
+            <span>学号</span>
+            <input type="email" id="stu_id" placeholder="学号" readonly="readonly">
+        </label>
+        <label>
+            <span>真实姓名</span>
+            <input type="text" id="realname" placeholder="真实姓名">
+        </label>
+        <label>
+            <span>用户名</span>
+            <input type="text" id="username" placeholder="用户名">
+        </label>
+        <label>
+            <span>QQ号码</span>
+            <input type="text" id="qq" placeholder="QQ号码">
+        </label>
+        <label>
+            <span>手机号码</span>
+            <input type="text" id="mobile" placeholder="手机号码">
+        </label>
+        <div class="ButtonLeft" id="Left">
+            <label>
+                <input type="button" class="button" id="btn1" value="修改">
+            </label>
+        </div>
+        <div class="ButtonRight" id="Right">
+            <label>
+                <input type="button" class="button" id="btn2" value="返回">
+            </label>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        function go(s) {
+            return typeof (s) == "undefined" ? "" : s;
+        }
+        $.get("../api/auth/me", function (data) {
+            $("#email").val(go(data.email));
+            $("#realname").val(go(data.realname));
+            $("#qq").val(go(data.qq));
+            $("#stu_id").val(go(data.stu_id));
+            $("#username").val(go(data.username));
+            $("#id").val(go(data.id));
+            $("#mobile").val(go(data.mobile));
+        });
+        $("#btn1").on("click", function () {
+            let qq = $("#qq").val()
+            let username = $("#username").val()
+            let mobile = $("#mobile").val()
+            let realname = $("#realname").val()
+            $.post("../api/auth/update/", {
+                "qq": qq,
+                "username": username,
+                "mobile": mobile,
+                "realname": realname
+            }, function (data) {
+                if (data.result != "success") {
+                    alert(data.msg)
+                    return;
+                } else {
+                    alert("修改成功了!")
+                }
+            })
+        });
+        $("#btn2").on("click", function () {
+            $(location).attr('href', '/lf/');
+        });
+    });
+</script>
+<script src="../static/pagebuttom.js"> </script>
+
+</html>

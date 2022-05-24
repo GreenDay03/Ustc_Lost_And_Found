@@ -9,6 +9,10 @@ from django.core.files.storage import default_storage
 from django.contrib import auth
 from django.core.mail import send_mail
 
+def dict_clear(dic : dict, invalid_keys={'',None}):
+    '''把字典里某些键不合要求的项目都清除了'''
+    return dict([(x, y) for x, y in dic.items() if y not in invalid_keys])
+
 class ViewBase(View):
     def fail(self,msg=''):
         return JsonResponse({
@@ -154,7 +158,20 @@ class Chpwd(ViewBase):
 
 class Update(ViewBase):
     def post(self, request):
-        return self.fail('我还没写好')
+        if not request.user.is_authenticated:
+            return self.fail('您还未登录')
+        pk = request.user.id
+        ret = UstcUser.objects.filter(pk=pk)
+        if ret.count() != 1:
+            return self.fail('找不到这个用户')
+        update_info = {
+            'last_name' : request.POST.get('realname'),
+            'first_name' : request.POST.get('username'),
+            'mobile' : request.POST.get('mobile'),
+            'qq' : request.POST.get('qq')
+        }
+        ret.update(**dict_clear(update_info))
+        return self.SUCCESS
 
 class UserQuery(ViewBase):
     def get(self, request, pk):
@@ -169,12 +186,12 @@ class UserQuery(ViewBase):
         ret['id'] = pk
         ret['stu_id'] = account.username
         ret['email'] = account.email
-        ret['mobile'] = account.mobile or '未填写'
-        ret['username'] = account.first_name or '未填写'
-        ret['realname'] = account.last_name or '未填写'
-        ret['qq'] = account.qq or '未填写'
-        ret['avatar'] = account.avatar or '未上传'
-        return JsonResponse(ret)
+        ret['mobile'] = account.mobile
+        ret['username'] = account.first_name
+        ret['realname'] = account.last_name
+        ret['qq'] = account.qq
+        ret['avatar'] = account.avatar
+        return JsonResponse(dict_clear(ret))
 
 class MyQuery(UserQuery):
     def get(self, request):
