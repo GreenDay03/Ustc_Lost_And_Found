@@ -5,19 +5,21 @@ var redata ;
 function showblogs( blogsarr ) {
 	let l = blogsarr.length ;
 	for( let i = 0 ; i < l ; i++ ){
-		document.getElementsById('item'+i).innerHTML = 
-		`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
+		// document.getElementsById('item'+i).innerHTML = 
+		// `<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
+		$(`#item${i}`).html(`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>`) ;
+		$(`#item${i}`).attr( 'href' , `/${blogsarr[i]['id']}`) ;
 	}
 }
 $(function () {
 	$("form").on("submit",function (e) {
 		e.preventDefault();
-		let type = $("input[name=type]").val() ;
-		let titlev = $("input[name=title]").val() ;
-		let dateoldv = $("input[name=date_old]").val();
-		let datenewv = $("input[name=date_new]").val();
-		let placev = $("input[name=place").val() ;
-		let namev = $("input[name=name]").val() ;
+		let type 	= $("input[name=type]").val() ;
+		let titlev 	= $("input[name=title]").val() ;
+		let dateoldv= $("input[name=date_old]").val();
+		let datenewv= $("input[name=date_new]").val();
+		let placev 	= $("input[name=place").val() ;
+		let namev 	= $("input[name=name]").val() ;
 		$.get( "../api/lf/list" , {
 			"title" : titlev ,
 			"date_old" : dateoldv ,
