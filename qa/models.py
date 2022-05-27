@@ -7,4 +7,7 @@ class Qa(models.Model):
     a = models.CharField(max_length=1000)
     time = models.DateTimeField()
     top = models.BooleanField()
-
+    type = models.CharField(max_length=1,choices=(
+        ('T', 'Tips'),
+        ('Q', 'Qa')
+    ),default='Q')

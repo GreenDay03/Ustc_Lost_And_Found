@@ -11,7 +11,7 @@
     <meta http-equiv="x-ua-compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>
-        Login - 登录
+        Forget - 忘记密码
     </title>
     <script src="../static/js/jquery-2.2.1.min.js"></script>
     <script src="../static/js/mzui_2.js"></script>
@@ -73,7 +73,7 @@
 </head>
 
 <body style="font-family: 微软雅黑; padding: 0px; margin: 0px;" class="can-scroll">
-    <form method="post" action="/api/auth/login/" id="form1">
+    <form method="post" action="/api/auth/forget/" id="form1">
         <div id="partial" class="container display fade in" data-find="_3" data-display-name="navs"
             style="padding-right: 0px; padding-left: 0px;">
             <div class="section" style="margin-bottom: 0px;">
@@ -83,28 +83,35 @@
                 </div>
             </div>
             <section class="section">
-                <div id="login">
+                <div id="Forget">
                     <div class="heading">
-                        <div class="title"><strong>登 录</strong></div>
+                        <div class="title"><strong>找 回 密 码</strong></div>
                     </div>
                     <div class="box">
                         <div class="control has-label-left has-icon-right">
-                            <input name="stu_id" type="text" id="txtId" class="input" placeholder="学号">
+                            <input name="email" type="text" id="txtId" class="input" placeholder="科大邮箱">
                         </div>
+
                         <div class="control has-label-left has-icon-right">
-                            <input name="password" type="password" id="txtPwd" class="input" placeholder="密码">
+                            <input name="captcha" type="text" id="txtCaptcha" class="input" placeholder="验证码">
+                            <button type="button" id="sendCaptcha"
+                                class="btn text-primary" style="width: 100%;"> 发送验证码 </button>
+
                         </div>
+
+                        <div class="control has-label-left has-icon-right">
+                            <input name="password" type="password" id="txtPwd" class="input" placeholder="新的密码，要求6~20位">
+                        </div>
+
                         <div class="control has-label-left has-icon-right">
                             <p class="help-text">登录使用即表示您已阅读并接受<a href="https://www.hadsky.com/agreement.html?chkcsrfval=2371ca600d787f8e4e68aaf691d0d56c&name=%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6%E6%9D%83%E7%9B%8A%E6%9F%9C&alias=%E6%9D%83%E7%9B%8A%E6%9F%9C"
                                     target="_blank" style="color: blue;">《用户使用协议》及 《隐私协议》 </a></p>
                         </div>
-                        <button type="submit" onclick="Login();" id="btnLogin"
-                            class="btn primary" style="width: 100%;"> 登陆</button>
+                        <button type="submit" onclick="Forget();" id="btnForget"
+                            class="btn primary" style="width: 100%;"> 找回密码 </button>
     </form>
                         <button type="button" class="btn text-primary" style="width: 100%; margin-top: 5px;"
-                            onclick="$(location).attr('href', '/register/');">没有账号？点此去注册</button>
-                        <button type="button" class="btn text-primary" style="width: 100%; margin-top: 5px;"
-                            onclick="$(location).attr('href', '/forget/');">找回密码</button>
+                            onclick="$(location).attr('href', '/login/');"> 返回登陆页面 </button>
                     </div>
                 </div>
             </section>
@@ -122,21 +129,36 @@
 $(document).ready(function(){
 	$("form").on("submit",function (e) {
 		e.preventDefault();
-		let stu_id = $("input[name=stu_id]").val();
+		let email = $("input[name=email]").val();
+        let captcha = $("input[name=captcha]").val();
 		let password = $("input[name=password]").val();
-		$.post( "../api/auth/login/" , {
-			"stu_id" : stu_id ,
+		$.post( "../api/auth/forget/" , {
+			"email" : email,
+            "captcha" : captcha, 
 			"password" : password
-		},
-		function(data){
+		}, function(data){
 			if( data.result != "success") {
                 alert(data.msg)
                 return ;
             } else {
-                $(location).attr('href', '/lf/');
+                alert("找回密码成功，3秒后跳转登陆界面");
+                setTimeout("$(location).attr('href', '/login/');", 3000);
             }
 		})
 	});
+    $("#sendCaptcha").on("click", function() {
+        let email = $("input[name=email]").val();
+		$.post( "../api/auth/captcha/" , {
+			"email" : email,
+		}, function(data){
+			if( data.result != "success") {
+                alert(data.msg)
+                return ;
+            } else {
+                alert("验证码发送成功，有效期10分钟。")
+            }
+		});
+    });
 });
 </script>
 

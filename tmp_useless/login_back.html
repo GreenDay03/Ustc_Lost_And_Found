@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login</title>
+    <!--引入本地css & js-->
+    <link rel="stylesheet" href="../static/sty.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-horizontal" action="/api/auth/login/" method="post">
+        {% csrf_token %}
+        <div class="control-group">
+          <label class="control-label" contenteditable="true" for="inputUser">学号</label>
+          <div class="controls">
+            <input name="stu_id" placeholder="User" type="text" value="" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" contenteditable="true" for="inputPassword">密码</label>
+          <div class="controls">
+            <input name="password" placeholder="Password" type="password" value="" />
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label class="checkbox" contenteditable="true">
+            <input type="checkbox" /> Remember me </label>
+            <button class="btn" contenteditable="true" type="submit">登陆</button>
+            <span style="color:red;"> {{ status }}</span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  </body>
+</html>
