@@ -1,0 +1,11 @@
+{
+    "python.analysis.extraPaths": [
+        "./src",
+        "./modules"
+    ],
+    "editor.fontSize": 16,
+    "python.defaultInterpreterPath": "D:\\anaconda\\envs\\django\\python.exe",
+    "python.autoComplete.extraPaths": [
+
+    ]
+}

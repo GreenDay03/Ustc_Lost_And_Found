@@ -1,0 +1,1 @@
+https://pad.degrowth.net/aNWERPt7SE6ezfPST4Ck9A

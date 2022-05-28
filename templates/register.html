@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="x-ua-compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>
+        Register - 注册
+    </title>
+    <script src="../static/js/jquery-2.2.1.min.js"></script>
+    <script src="../static/js/mzui_2.js"></script>
+    <link href="../static/mzui.min.css" rel="stylesheet">
+    <script src="../static/js/zepto.min.js"></script>
+    <style>
+        .vaptcha-init-main {
+            display: table;
+            width: 100%;
+            height: 100%;
+            background-color: #EEEEEE;
+        }
+
+        ​ .vaptcha-init-loading {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center
+        }
+
+        ​ .vaptcha-init-loading>a {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: none;
+        }
+
+        ​ .vaptcha-init-loading>a img {
+            vertical-align: middle
+        }
+
+        ​ .vaptcha-init-loading .vaptcha-text {
+            font-family: sans-serif;
+            font-size: 12px;
+            color: #CCCCCC;
+            vertical-align: middle
+        }
+    </style>
+    <style>
+        .footer {
+            text-align: center;
+            color: #999;
+            font: 13px/28px "Microsoft YaHei", 微软雅黑;
+            height: 135px;
+            width: 100%;
+            overflow: hidden;
+            display: block;
+        }
+
+        .footer a {
+            color: #999;
+        }
+
+        .footer a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="../static/js/polite.js"></script>
+</head>
+
+<body style="font-family: 微软雅黑; padding: 0px; margin: 0px;" class="can-scroll">
+    <form method="post" action="/api/auth/register/" id="form1">
+        <div id="partial" class="container display fade in" data-find="_3" data-display-name="navs"
+            style="padding-right: 0px; padding-left: 0px;">
+            <div class="section" style="margin-bottom: 0px;">
+                <div class="heading">
+                    <div class="avatar circle primary"><i src="../static/icon.jpg"></i></div>
+                    <div class="title"><strong>USTC权益柜</strong></div>
+                </div>
+            </div>
+            <section class="section">
+                <div id="Forget">
+                    <div class="heading">
+                        <div class="title"><strong>注 册</strong></div>
+                    </div>
+                    <div class="box">
+                        <div class="control has-label-left has-icon-right">
+                            <input name="email" type="text" id="txtId" class="input" placeholder="科大邮箱">
+                        </div>
+
+                        <div class="control has-label-left has-icon-right">
+                            <input name="captcha" type="text" id="txtCaptcha" class="input" placeholder="验证码">
+                            <button type="button" id="sendCaptcha"
+                                class="btn text-primary" style="width: 100%;"> 发送验证码 </button>
+
+                        </div>
+
+                        <div class="control has-label-left has-icon-right">
+                            <input name="password" type="password" id="txtPwd" class="input" placeholder="密码，要求6~20位">
+                        </div>
+
+                        <div class="control has-label-left has-icon-right">
+                            <input name="username" type="text" id="txtUsername" class="input" placeholder="用户名">
+                        </div>
+
+                        <div class="control has-label-left has-icon-right">
+                            <input name="stu_id" type="text" id="txtStuid" class="input" placeholder="学号">
+                        </div>
+
+                        <div class="control has-label-left has-icon-right">
+                            <p class="help-text">登录使用即表示您已阅读并接受<a href="https://www.hadsky.com/agreement.html?chkcsrfval=2371ca600d787f8e4e68aaf691d0d56c&name=%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6%E6%9D%83%E7%9B%8A%E6%9F%9C&alias=%E6%9D%83%E7%9B%8A%E6%9F%9C"
+                                    target="_blank" style="color: blue;">《用户使用协议》及 《隐私协议》 </a></p>
+                        </div>
+                        <button type="submit" onclick="Forget();" id="btnForget"
+                            class="btn primary" style="width: 100%;"> 注册 </button>
+    </form>
+                        <button type="button" class="btn text-primary" style="width: 100%; margin-top: 5px;"
+                            onclick="$(location).attr('href', '/login/');"> 返回登陆页面 </button>
+                    </div>
+                </div>
+            </section>
+            <div class="footer">
+                <center style="font-size: 12px;">
+                    <p> USTC权益柜 CopyRight</p>
+                </center>
+            </div>
+        </div>
+        <!--script src="../static/js/base64.js"></script-->
+        <script src="../static/js/jquery-2.2.js"></script>
+</body>
+
+<script>
+$(document).ready(function(){
+	$("form").on("submit",function (e) {
+		e.preventDefault();
+		let email = $("input[name=email]").val();
+        let captcha = $("input[name=captcha]").val();
+		let password = $("input[name=password]").val();
+        let username = $("input[name=username]").val();
+		let stu_id = $("input[name=stu_id]").val();
+		$.post( "../api/auth/register/" , {
+			"email" : email,
+            "captcha" : captcha, 
+			"password" : password,
+            "username" : username,
+            "stu_id": stu_id
+		}, function(data){
+			if( data.result != "success") {
+                alert(data.msg)
+                return ;
+            } else {
+                alert("注册成功，3秒钟后切换到登陆界面");
+                setTimeout("$(location).attr('href', '/login/');", 3000);
+            }
+		})
+	});
+    $("#sendCaptcha").on("click", function() {
+        let email = $("input[name=email]").val();
+		$.post( "../api/auth/captcha/" , {
+			"email" : email,
+		}, function(data){
+			if( data.result != "success") {
+                alert(data.msg)
+                return ;
+            } else {
+                alert("验证码发送成功，有效期10分钟。")
+            }
+		});
+    });
+});
+</script>
+
+</html>
