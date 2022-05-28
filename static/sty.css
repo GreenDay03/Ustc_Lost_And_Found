@@ -89,3 +89,15 @@ form div{
 #link_release:hover{
 	background-color: #ffffff;
 }
+li.questions{
+	width: 100%;
+	background-color: #e7e7e7;
+}
+
+li.questions a.items{
+	display: block;
+	width: 100%;
+	margin: 0;
+	text-decoration: none;
+	color: black;
+}
