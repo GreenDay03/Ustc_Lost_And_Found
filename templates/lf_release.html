@@ -5,21 +5,49 @@
 	</title>
 
 	<link rel="stylesheet" type="text/css" href="../static/sty.css">
-	<!--script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script-->
+	<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-    <h1> 发帖页面（但是还没做好）</h1>
-    <form action="/api/lf/release/" method="post">
-        <input name="stu_id" placeholder="标题" type="text" value="" />
-        <input name="stu_id" placeholder="时间" type="text" value="" />
-        <input name="stu_id" placeholder="地点" type="text" value="" />
-        <input name="stu_id" placeholder="内容" type="text" value="" />
-        <input name="stu_id" placeholder="图片" type="text" value="" />
-        <input name="stu_id" placeholder="类型" type="text" value="" />
-        <input name="stu_id" placeholder="是否公开" type="text" value="" />
-    </form>
-    <button> 按这里发不了帖 </button>
+<body id="MainPage">
+	<script type="text/javascript" src="../static/directory.js"></script>
+	<div class="Page">
+		<div class="wrapper">
+			<div class="one">
+				<button type="button" onclick="fatie()">我要发帖</button>
+			</div>
+			<hr>
+			<div class="second">
+				<p> <input type="text" name="topic" id="" value="" placeholder="请输入标题（0-50个字）" /></p>
+				<p>所属板块：
+					<select>
+						<option value="1">请选择您的情况</option>
+						<option value="2">您是失主</option>
+						<option value="3">您是拾者</option>
+					</select>
+				</p>
+				<p> <input type="text" name="place" id="" value="" placeholder="丢失地点" /></p>
+				<p> <input type="text" name="time" id="" value="" placeholder="丢失时间" /></p>
+				<p> <input type="text" name="item" id="" value="" placeholder="丢失物品" /></p>
+				<p> <input type="text" name="contact" id="" value="" placeholder="联系方式" /></p>
+				<p><textarea rows="100" cols="200"></textarea></p>
+
+				<input type="file" class="form-control" id="file" name="file" th:οnchange="javascript:preview(this)">
+				<div id="preview">
+  		  　　		<img style="width: 100px; height: 100px;display:none" id="imgHidden" />
+				</div>
+				<button type="button" onclick="fabu()">发布</button>
+			</div>
+			<div class="msg">
+				<ul>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="log"></div>
+	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
+		<script type="text/javascript" src="../static/mainpage.js"></script>
+	</div>
+	<script type="text/javascript" src="../static/pagebuttom.js"></script>
 </body>
