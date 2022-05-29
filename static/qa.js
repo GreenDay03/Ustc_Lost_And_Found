@@ -10,6 +10,7 @@ function ShowQ( data ) {
 }
 
 function ShowQAndA( showarr ) {
+	$('li .questions').remove() ;
 	if( showarr.result != "success" ){
 		document.write( "<h1>出错了！请刷新试试<h1>") ;
 		return ;
@@ -26,14 +27,34 @@ function ShowQAndA( showarr ) {
 	}
 }
 
-$(document).ready(function(){
+function loadrsc( ) {
 	$.get( "../api/post/list" , {
-		"type": 'T' ,
-		"page": 1 
+		"type": "Q" ,
+		"page": currentpage
 	},
 	function( data ){
 		redata = data ;
 		pages = data.total_page ;
+		ShowQAndA( data ) ;
 	}) ;
-	ShowQAndA( data ) ;
+}
+
+$(document).ready(function(){
+	$("input[name=currentpage]").val(currentpage) ;
+	loadrsc( ) ;
+})
+
+$(function(){
+	$("input[name=turnleft]").on("click",function(e){
+		e.preventDefault() ;
+		if( currentpage == 1 ) ;
+		else currentpage-- ;
+		loadrsc( ) ;
+	}) ;
+	$("input[name=turnright]").on("click",function(e){
+		e.preventDefault() ;
+		if( currentpage == pages ) ;
+		else currentpage++ ;
+		loadrsc( ) ;
+	})
 })
