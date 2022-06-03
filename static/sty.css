@@ -101,3 +101,30 @@ li.questions a.items{
 	text-decoration: none;
 	color: black;
 }
+div.Page input.one {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid grey;
+  float: left;
+  width: 25%;
+  background: #f1f1f1;
+}
+div.second select{
+  padding: 3px;
+  font-size: 14px;
+  border: 1px solid grey;
+  width: 15%;
+  background: #f1f1f1;
+}
+div.wrapper button {
+  float: left;
+  width: 10%;
+  padding: 8px;
+  background: lightblue;
+  color: black;
+  font-size: 17px;
+  font-weight: bold;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
