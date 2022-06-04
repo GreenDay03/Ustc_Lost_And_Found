@@ -9,6 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="../static/releaseapicall.js"></script>
 </head>
 <body id="MainPage">
 	<script type="text/javascript" src="../static/directory.js"></script>
@@ -24,13 +25,13 @@
 				<br/>
 				<p>所属板块：
 					<select>
-						<option value="1">请选择您的情况</option>
-						<option value="2">您是失主</option>
-						<option value="3">您是拾者</option>
+						<option value="L">请选择您的情况</option>
+						<option value="L">您是失主</option>
+						<option value="F">您是拾者</option>
 					</select>
 				</p>
 				<p> <input class="one" type="text" name="place" id="" value="" placeholder="丢失地点" /></p> <br/>
-				<p> <input class="one" type="text" name="time" id="" value="" placeholder="丢失时间" /></p> <br/>
+				<p> <input class="one" type="time" name="time" id="" value="" placeholder="丢失时间" /></p> <br/>
 				<p> <input class="one" type="text" name="item" id="" value="" placeholder="丢失物品" /></p> <br/>
 				<p> <input class="one" type="text" name="contact" id="" value="" placeholder="联系方式" /></p> <br/>
 				<p><textarea rows="100" cols="200"></textarea></p>
@@ -39,7 +40,7 @@
 				<div id="preview">
   		  　　		<img style="width: 100px; height: 100px;display:none" id="imgHidden" />
 				</div>
-				<button type="button" onclick="fabu()">发布</button>
+				<button type="button">发布</button>
 				<br/><br/>
 			</div>
 			<div class="msg">
