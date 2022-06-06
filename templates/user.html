@@ -138,8 +138,8 @@
     <div class="Content-Main">
         <h1>查看及修改个人信息</h1>
         <div class="fileInputContainer">
-            <input class="fileInput" id="" type="file" name="">
-            <img src="../static/icon.jpg" style="height: 30pt; width: 30pt;"> </img>
+            <input class="fileInput" id="uploadfile" type="file" name="">
+            <img src="../static/icon.jpg" style="height: 50pt; width: 50pt;" id="avatar"> </img>
         </div>
         <label>
             <span>用户ID</span>
@@ -194,6 +194,7 @@
             $("#username").val(go(data.username));
             $("#id").val(go(data.id));
             $("#mobile").val(go(data.mobile));
+            $("#avatar").attr("src", "../media/" + data.avatar);
         });
         $("#btn1").on("click", function () {
             let qq = $("#qq").val()
@@ -218,6 +219,58 @@
             $(location).attr('href', '/lf/');
         });
     });
+    
+    var fileList = [] // 文件list
+    $('#uploadfile').change(function(){
+        var fileItem = $('#uploadfile')[0].files[0]
+        var formData = new FormData();
+        formData.append('avatar', fileItem)
+        $.ajax ({
+            type : "post",
+            url : "../api/auth/chavatar/",
+            data : formData,
+            async : true,
+            cache : false,
+            contentType : false,
+            processData : false,
+            dataType : 'json',
+            success : function (data) {
+                if (data.result != "success") {
+                    alert(data.msg)
+                    return;
+                } else {
+                    alert("修改成功了!")
+                    $("#avatar").attr("src", "../media/" + data.avatar);
+                }
+            }
+        });
+    });
+    function showFile() {
+        var fileItem = fileList
+        if(fileItem.length){
+            var str = ''
+            for(var i = 0; i < fileItem.length; i++){
+                str += '<div class="files-info"><p>';
+                str +=  fileItem[i].name
+                str += '</p>'
+                /*str += '<p class="fileIcon checkIcon"><img src="images/check.png" alt=""></p>'
+                str += '<p class="fileIcon down"><img src="images/down.png" alt=""></p>'*/
+                str += '<p class="fileIcon delete"><img src="images/del.png" alt="" onclick=delFileItem('
+                str += `\'`;
+                str += i;
+                str += `\'`;    
+                str += ')></p>';
+                str += '</div>';
+            }
+            $('#fileList').html(str)
+        } else {
+            $('#fileList').remove()
+        }
+    }
+    function delFileItem(i){
+        fileList.splice(i, 1)
+        showFile()
+    }
 </script>
 <script src="../static/pagebuttom.js"> </script>
 
