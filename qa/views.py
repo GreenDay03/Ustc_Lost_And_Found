@@ -5,18 +5,10 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from .models import *
 from django.core.files.storage import default_storage
-#from django.views.decorators.csrf import csrf_exempt
-#from ..Ustc_Lost_And_Found import settings
-
-# Create your views here.
-class ViewBase(View):
-    def fail(self,msg=''):
-        return JsonResponse({
-            "result" : "fail",
-            "msg" : msg
-        })
-    SUCCESS = JsonResponse({  "result" : "success"   })
-
+import os.path
+import sys
+sys.path.append(os.path.dirname(__file__) + os.sep + '../')
+from common.common import *
 
 class List(ViewBase):
     PAGE = 20

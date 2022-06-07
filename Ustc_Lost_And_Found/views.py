@@ -31,3 +31,11 @@ def register(request):
 
 def forget(request):
     return render(request, 'forget.html')
+
+@login_required
+def qa_release(request):
+    return render(request, 'qa_release.html')
+
+@login_required
+def report_release(request):
+    return render(request, 'report_release.html')

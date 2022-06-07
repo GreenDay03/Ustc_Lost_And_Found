@@ -1,30 +1,17 @@
-from ast import expr_context
 from datetime import date, datetime
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.base import View
-
-from au.models import UstcUser
 from .models import *
 from django.core.files.storage import default_storage
+import os.path
+from django.core.files.base import ContentFile
 #from django.views.decorators.csrf import csrf_exempt
 #from ..Ustc_Lost_And_Found import settings
-
-# Create your views here.
-class ViewBase(View):
-    def fail(self,msg=''):
-        return JsonResponse({
-            "result" : "fail",
-            "msg" : msg
-        })
-    SUCCESS = JsonResponse({  "result" : "success"   })
-    def get_usertype(self, request):
-        if request.user.is_superuser:
-            return 'root' if request.user.is_staff else 'admin'
-        else:
-            return 'guest'
-
+import sys
+sys.path.append(os.path.dirname(__file__) + os.sep + '../')
+from common.common import *
 
 class List(ViewBase):
     PAGE = 20
@@ -93,10 +80,13 @@ class Release(ViewBase):
                 return self.fail('public格式不对')
             if not (para['place'] and para['title'] and para['name']):
                 return self.fail('缺少必要参数')    #这三个字段不让为空
-            para['pic1'] = request.FILES.get('pic1') or ''
-            para['pic2'] = request.FILES.get('pic2') or ''
-            para['pic3'] = request.FILES.get('pic3') or ''
             item = LFPost(**para)
+            for i in range(1, 4):
+                name = f'pic{i}'
+                file_name, file_content, _ = process_file(request.FILES.get(name))
+                if not file_name:
+                    continue
+                getattr(item, name).save(file_name, file_content)
             item.save()
             return JsonResponse({
                 "result" : "success", 
@@ -166,10 +156,14 @@ class Reply(ViewBase):
                 para['public'] = True
             else:
                 return self.fail('public格式不对')
-            para['pic1'] = request.FILES.get('pic1') or ''
-            para['pic2'] = request.FILES.get('pic2') or ''
-            para['pic3'] = request.FILES.get('pic3') or ''
-            LFReply(**para).save()
+            item = LFReply(**para)
+            for i in range(1, 4):
+                name = f'pic{i}'
+                file_name, file_content, _ = process_file(request.FILES.get(name))
+                if not file_name:
+                    continue
+                getattr(item, name).save(file_name, file_content)
+            item.save()
         except Exception:
             return self.fail('缺少必要参数id或格式不对')
 
