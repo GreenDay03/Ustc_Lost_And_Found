@@ -1,8 +1,11 @@
+from ast import expr_context
 from datetime import date, datetime
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic.base import View
+
+from au.models import UstcUser
 from .models import *
 from django.core.files.storage import default_storage
 #from django.views.decorators.csrf import csrf_exempt
@@ -16,6 +19,11 @@ class ViewBase(View):
             "msg" : msg
         })
     SUCCESS = JsonResponse({  "result" : "success"   })
+    def get_usertype(self, request):
+        if request.user.is_superuser:
+            return 'root' if request.user.is_staff else 'admin'
+        else:
+            return 'guest'
 
 
 class List(ViewBase):
@@ -24,7 +32,7 @@ class List(ViewBase):
         result = {
             "result" : "success", 
             "total_page" : 0,
-            "privilege" : "root",   #之后修补
+            "privilege" : self.get_usertype(request),
             "data" : []
         }
         para = {}
@@ -62,13 +70,9 @@ class List(ViewBase):
 
 class Release(ViewBase):
     def post(self, request):
-        print('-'*20)
-        print(request.POST.get('date'))
-        print(request.POST.get('title'))
-        print('-'*20)
         try:
             para = {
-                'author' : 'root', #这个地方，应该用鉴权模块自动配置，这里初始阶段先暂时跳过，此后再修补
+                'author' : request.user.pk,
                 'date' : date.fromisoformat(request.POST.get('date')),  #如果这个地方有异常直接就fail了
                 'place' : request.POST.get('place'),
                 'name' : request.POST.get('name'),
@@ -105,12 +109,17 @@ class Delete(ViewBase):
     def post(self, request):
         try:
             pk = int(request.POST.get('id'))
-            if LFPost.objects.filter(pk=pk).delete()[0] == 0:
-                return self.fail('找不到这个帖子')
-            return self.SUCCESS
         except Exception:
-            return self.fail('缺少必要参数id')
-        
+            return self.fail('缺少必要参数id') 
+        try:
+            reply = LFPost.objects.get(pk=pk)
+        except Exception:
+            return self.fail('找不到这个贴子')
+        if self.get_usertype(request) == 'guest' and str(request.user.pk) != reply.author:
+            return self.fail('权限不够')
+        reply.delete()
+        return self.SUCCESS
+
 
 class Pick(ViewBase):
     def post(self, request):
@@ -145,7 +154,7 @@ class Reply(ViewBase):
     def post(self, request):
         try:
             para = {
-                'author' : 'root', #这个地方，应该用鉴权模块自动配置，这里初始阶段先暂时跳过，此后再修补
+                'author' : str(request.user.pk),
                 'post_id' : int(request.POST.get('post_id')),
                 'text' : request.POST.get('text'),
                 'public' : request.POST.get('public'),
