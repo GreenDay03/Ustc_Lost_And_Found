@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/lf/', include('lf.urls')),
     path('api/auth/', include('au.urls')),
     path('api/post/', include('qa.urls')),
+    path('api/report/', include('report.urls')),
     path('login/', auth_view.LoginView.as_view(template_name='../templates/login.html')),
     path('register/', views.register),
     path('forget/', views.forget),
