@@ -10,7 +10,7 @@ class ReportPost(models.Model):
     pic3 = models.FileField(blank=True)
     time = models.DateTimeField()
     reply = models.CharField(max_length=256,default=None,blank=True)
-    reply_time = models.DateField(default=None, blank=True)
+    reply_time = models.DateField(blank=True,null=True)
     importace = models.BigIntegerField()
 
 class Star(models.Model):

@@ -11,5 +11,5 @@ urlpatterns = [
     path('release', login_required(Release.as_view())),
     path('delete', login_required(Delete.as_view())),
     path('star', login_required(Star.as_view())),
-    path('delete', login_required(Delete.as_view())),
+    path('reply', login_required(Reply.as_view())),
 ]

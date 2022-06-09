@@ -82,7 +82,7 @@ class Delete(ViewBase):
 
 class Reply(ViewBase):
     def post(self, request):
-        if self.get_usertype() == 'guest':
+        if self.get_usertype(request) == 'guest':
             return self.fail('权限不够')
         try:
             person = int(request.POST.get('id'))
