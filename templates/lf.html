@@ -29,29 +29,30 @@
 	</div> -->
 	<div class="Page">
 		<form accept-charset="UTF-8" name="search" class="search" id="search">
-			<div style="padding: 0 30px 0 30px;" >
+			<div style="padding: 0 100px 0 100px;" >
 				<input type="radio" name="type" value="L"/>寻找失物<br/><br/>
 				<input type="radio" name="type" value="F"/>找到物品
 			</div>
-			<div style="padding: 0 30px 0 30px;">
-				物品名称：<input type="text" name="name"/><br/>
+			<div style="padding: 0 20px 0 20px;">
+				物品名称：<input type="text" name="name"/><br/><br/>
 				时间范围：<div style="float: right;">最早<input type="date" name="date_old"/></div><br/>
 				<div style="float: right;">最晚<input type="date" name="date_new"/></div>
 			</div>
-			<div style="padding: 0 30px 0 30px;">
-				地点：<input type="text" name="place"><br/>
+			<div style="padding: 0 70px 0 70px;">
+				地点：<input type="text" name="place"><br/><br/>
 				标题：<input type="text" name="title">
 			</div>
+			<br/><br/>
 			<input type="submit" name="submit" value="搜索一下">
 		</form>
 		<script type="text/javascript" src="../static/lfapicall.js"></script>
 	</div>
 	<div class="Page" id="issue" class="item">
 		<div style="width: 80%;margin: 0 10%;overflow: hidden;height: 60px;">
-			<a href="./lf_release/" class="main" style="display: block;background-color: #eeeeee;width: 100%;height: 100%;text-decoration: none;position: 0 0;text-align: center;color: #ffffff;" id="link_release"><br/>我要发贴</a>
+			<a href="./lf_release/" class="main" style="display: block;background-color: #eeeeee;width: 100%;height: 100%;text-decoration: none;position: 0 0;text-align: center;color: black;" id="link_release"><br/>我要发贴</a>
 		</div>
 	</div>
-	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
+	<div class="Page" style="background-color: white;" id="pagecontent">
 		<script type="text/javascript" src="../static/mainpage.js"></script>
 	</div>
 	<script type="text/javascript" src="../static/pagebuttom.js"></script>
