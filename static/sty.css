@@ -63,6 +63,8 @@ ul.items li.items{
 	border: solid#e7e7e7;
 }
 li.items a.items{
+	text-decoration: none;
+	color: black;
 	display: block;
 	width: 100%;
 	margin: 0;
@@ -128,4 +130,11 @@ div.wrapper button {
   border: 1px solid grey;
   border-left: none;
   cursor: pointer;
+}
+a.items div.half{
+	margin: 0;
+	display: inline-block;
+	width: 49%;
+	text-align: center;
+	/*padding-top: 140px;*/
 }
