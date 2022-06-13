@@ -14,7 +14,11 @@ function showblogs( blogsarr ) {
 $(function () {
 	$("form").on("submit",function (e) {
 		e.preventDefault();
-		let type 	= $("input[name=type]").val() ;
+		let type 	= function( data ){
+			if( data === undefined )
+				return 'L' ;
+			return data ;
+		}($("input[name=type]:checked").val()) ;
 		let titlev 	= $("input[name=title]").val() ;
 		let dateoldv= $("input[name=date_old]").val();
 		let datenewv= $("input[name=date_new]").val();
