@@ -2,15 +2,31 @@ var pagenum = 1 ;
 var blogs = [] ;
 var redata ;
 
+// function showblogs( blogsarr ) {
+// 	let l = blogsarr.length ;
+// 	for( let i = 0 ; i < l ; i++ ){
+// 		// document.getElementsById('item'+i).innerHTML = 
+// 		// `<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
+// 		$(`#item${i}`).html(`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>`) ;
+// 		$(`#item${i}`).attr( 'href' , `/${blogsarr[i]['id']}`) ;
+// 	}
+// }
+
 function showblogs( blogsarr ) {
-	let l = blogsarr.length ;
-	for( let i = 0 ; i < l ; i++ ){
-		// document.getElementsById('item'+i).innerHTML = 
-		// `<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
-		$(`#item${i}`).html(`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>`) ;
-		$(`#item${i}`).attr( 'href' , `/${blogsarr[i]['id']}`) ;
+	let len = blogsarr.length ;
+	for( let i = 0 ; i < len ; i++ ) {
+		$(`
+			<a class="items" id="item${i}" href="${blogsarr[i]['id']}]">
+				<div class="half">${blogsarr[i]['title']}
+				<p><input type="date" value="${blogsarr[i]['date']}"/></p>
+				<p>${blogsarr[i]['place']}</p>
+				<div>${blogsarr[i]['name']}</div>
+				<div><p>${blogsarr[i]['text']}</p></div></div>
+			</a>
+			`).appendTo( 'ul[class=items]' ) ;
 	}
 }
+
 $(function () {
 	$("form").on("submit",function (e) {
 		e.preventDefault();
@@ -39,7 +55,7 @@ $(function () {
 			for( i = 0 ; i < data.data.length ; i++ ){
 				blogs.push( data.data[i] ) ;
 			}
-			redata = data ;
+			redata = data['data'] ;
 			showblogs( blogs ) ;
 			//console.log(redata)
 		})
