@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from django.forms import model_to_dict
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.base import View
 from .models import *
 from django.core.files.storage import default_storage
@@ -50,6 +50,7 @@ class List(ViewBase):
         result['total_page'] = tot
         for i in range((page-1)*self.PAGE, min(page*self.PAGE,query.count())):
             rec = model_to_dict(query[i])  #rec表示一条记录。
+            rec['time'] = query[i].time.strftime("%Y-%m-%d %H:%M:%S")
             del rec['pic1'], rec['pic2'], rec['pic3'], rec['text']  #这几项都不要
             result['data'].append(rec)
         return JsonResponse(result)
@@ -74,10 +75,8 @@ class Release(ViewBase):
                 return self.fail('type格式不对')
             if para['public'] == '0':
                 para['public'] = False
-            elif para['public'] == '1':
-                para['public'] = True
             else:
-                return self.fail('public格式不对')
+                para['public'] = True
             if not (para['place'] and para['title'] and para['name']):
                 return self.fail('缺少必要参数')    #这三个字段不让为空
             item = LFPost(**para)
@@ -171,4 +170,4 @@ class LfQuery(ViewBase):
     def get(self, request, pk):
         if not request.user.is_authenticated:
             return self.fail('您未登录')
-        return render(request, 'lf.html')
+        return redirect('/lf/')

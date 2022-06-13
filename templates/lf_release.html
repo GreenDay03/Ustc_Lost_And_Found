@@ -4,19 +4,19 @@
 		USTC权益柜
 	</title>
 
-	<link rel="stylesheet" type="text/css" href="../static/sty.css">
+	<link rel="stylesheet" type="text/css" href="../../static/sty.css">
 	<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script type="text/javascript" src="../static/releaseapicall.js"></script>
+	<!--script type="text/javascript" src="../static/releaseapicall.js"></script-->
 </head>
 <body id="MainPage">
-	<script type="text/javascript" src="../static/directory.js"></script>
+	<script type="text/javascript" src="../../static/directory.js"></script>
 	<div class="Page">
 		<div class="wrapper">
 			<div>
-				<button type="button" onclick="fatie()">我要发帖</button>
+				<button type="button" id="post">我要发帖</button>
 			</div>
 			<br/><br/>
 			<hr>
@@ -35,13 +35,12 @@
 				<p> <input class="one" type="date" name="date" id="" value="" /></p> <br/>
 				<p> <input class="one" type="text" name="item" id="" value="" placeholder="丢失物品" /></p> <br/>
 				<p> <input class="one" type="text" name="contact" id="" value="" placeholder="联系方式" /></p> <br/>
-				<p><textarea rows="100" cols="200"></textarea></p>
+				<p><textarea rows="33" cols="66"></textarea></p>
 
 				<input type="file" class="form-control" id="file" name="file" th:οnchange="javascript:preview(this)">
 				<div id="preview">
   		  　　		<img style="width: 100px; height: 100px;display:none" id="imgHidden" />
 				</div>
-				<button type="button">发布</button>
 				<br/><br/>
 			</div>
 			<div class="msg">
@@ -51,8 +50,55 @@
 		</div>
 	</div>
 	<div id="log"></div>
-	<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
-		<script type="text/javascript" src="../static/mainpage.js"></script>
-	</div>
-	<script type="text/javascript" src="../static/pagebuttom.js"></script>
+	<!--div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
+		<script type="text/javascript" src="../../static/mainpage.js"></script>
+	</div-->
+	<script type="text/javascript" src="../../static/pagebuttom.js"></script>
 </body>
+
+<script>
+$("#post").on( "click" , function(e){
+	e.preventDefault() ;
+	var file = $("#file")[0].files;
+	if(file.length <= 0) {
+		file = "";
+	} else {
+		file = file[0];
+	}
+	var data = new FormData();
+	data.append("title", $("input[name=topic]").val());
+	data.append("date", $("input[name=date]").val());
+	data.append("place", $("input[name=place]").val());
+	data.append("name", $("input[name=item]").val());
+	data.append("text", $("textarea").val());
+	data.append("type", $("select").val());
+	data.append("pic1", file);
+	$.ajax({
+		method : "POST", 
+		url : "/api/lf/release",
+		data : data,
+		contentType : false,
+		processData : false,
+		success : function( data ){
+			if( data.result == "success" ){
+				alert('发帖成功，3秒后页面跳转');
+				setTimeout("$(location).attr('href', '/lf/');", 3000);
+				//window.navigate( `../lf/post/${data.id}` ) ;
+			} else {
+				alert(data.msg);
+			}
+		}
+	});
+	/*
+	$.post( "/api/lf/release" , data , function( data ){
+		if( data.result == "success" ){
+			alert('发帖成功，3秒后页面跳转');
+			setTimeout("$(location).attr('href', '/lf/');", 3000);
+			//window.navigate( `../lf/post/${data.id}` ) ;
+		} else {
+			alert(data.msg);
+		}
+	})
+	*/
+})
+</script>

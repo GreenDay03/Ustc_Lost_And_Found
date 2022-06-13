@@ -1,4 +1,5 @@
-$("form button").on( "click" , function(e){
+$("#post").on( "click" , function(e){
+	alert("我要发贴了！！！！")
 	e.preventDefault() ;
 	$.post( "../api/lf/release" , {
 		"title" : $("input[name=topic]").val() ,
