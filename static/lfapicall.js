@@ -45,23 +45,3 @@ $(function () {
 		})
 	});
 });
-
-
-$(document).ready(function(){
-	$("#logout").click(function(){
-		$.ajax({
-			type: "POST",
-			url: "../api/auth/logout/",
-			data: {},
-			dataType: "JSON",
-			success: function(result) {
-				$(location).attr('href', '/lf/');
-			},
-			error: function(result) {
-				alert('发生错误');
-			}
-		});
-	});
-});
-
-
