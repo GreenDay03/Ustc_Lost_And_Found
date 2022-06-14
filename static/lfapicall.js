@@ -18,7 +18,7 @@ function showblogs( blogsarr ) {
 		$(`
 			<a class="items" id="item${i}" href="${blogsarr[i]['id']}]">
 				<div class="half">${blogsarr[i]['title']}
-				<p><input type="date" value="${blogsarr[i]['date']}"/></p>
+				<p><input type="date" value="${blogsarr[i]['date']}" disabled/></p>
 				<p>${blogsarr[i]['place']}</p>
 				<div>${blogsarr[i]['name']}</div>
 				<div><p>${blogsarr[i]['text']}</p></div></div>
@@ -29,7 +29,8 @@ function showblogs( blogsarr ) {
 
 $(function () {
 	$("form").on("submit",function (e) {
-		e.preventDefault();
+		e.preventDefault() ;
+		$( 'ul[class=items] a.items' ).remove( ) ;
 		let type 	= function( data ){
 			if( data === undefined )
 				return 'L' ;
@@ -50,6 +51,7 @@ $(function () {
 			"type" : type 
 		}, 
 		function( data ){
+			blogs = [] ;
 			if( data.result != "success")
 				return ;
 			for( i = 0 ; i < data.data.length ; i++ ){

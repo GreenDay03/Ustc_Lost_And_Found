@@ -37,6 +37,17 @@
 				物品名称：<input type="text" name="name"/><br/><br/>
 				时间范围：<div style="float: right;">最早<input type="date" name="date_old"/></div><br/>
 				<div style="float: right;">最晚<input type="date" name="date_new"/></div>
+				<script type="text/javascript">
+					$(document).ready( function(){
+						let date = new Date() ;
+						function addFrontZero( data , ismonth ){
+							if( data < 10 )
+								return '0'+(data+ismonth) ;
+							else return data+ismonth ;
+						}
+						$( 'input[name=date_old]' ).attr( "max", `${date.getFullYear()}-${ addFrontZero( date.getMonth() , 1 ) }-${addFrontZero( date.getDate() , 0 ) }` ) ;
+					})
+				</script>
 			</div>
 			<div style="padding: 0 70px 0 70px;">
 				地点：<input type="text" name="place"><br/><br/>
