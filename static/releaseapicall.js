@@ -1,4 +1,4 @@
-$("form button").on( "click" , function(e){
+$("button").on( "click" , function(e){
 	e.preventDefault() ;
 	$.post( "../api/lf/release" , {
 		"title" : $("input[name=topic]").val() ,
