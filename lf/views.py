@@ -51,7 +51,10 @@ class List(ViewBase):
         for i in range((page-1)*self.PAGE, min(page*self.PAGE,query.count())):
             rec = model_to_dict(query[i])  #rec表示一条记录。
             rec['time'] = query[i].time.strftime("%Y-%m-%d %H:%M:%S")
-            del rec['pic1'], rec['pic2'], rec['pic3'], rec['text']  #这几项都不要
+            rec['pic1'] = str(query[i].pic1)
+            rec['pic2'] = str(query[i].pic2)
+            rec['pic3'] = str(query[i].pic3)
+            #del rec['pic1'], rec['pic2'], rec['pic3']  #这几项都不要
             result['data'].append(rec)
         return JsonResponse(result)
 
