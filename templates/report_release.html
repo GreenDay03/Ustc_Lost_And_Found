@@ -1,88 +1,31 @@
 <!DOCTYPE html>
+<html>
 <head>
-	<title>
-		USTC权益柜
-	</title>
-
-	<link rel="stylesheet" type="text/css" href="../../static/sty.css">
-	<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> USTC权益柜</title>
+	<link rel="stylesheet" type="text/css" href="../static/sty.css"> 
+	<script type="text/javascript" scr="https://apps.bdimg.com.libs/jquery/2.14/jquery.min.js"></script>
+	<meta http-equiv ="Content-Type" content="text/html;charset=UTF-8">
 	<meta http-equiv="Pragma" content="no-cache">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--script type="text/javascript" src="../static/releaseapicall.js"></script-->
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<script type="text/javascript" src="../static/releaseapicall.js"></script>
 </head>
-<body id="MainPage">
-	<script type="text/javascript" src="../../static/directory.js"></script>
+
+<body>
+	<script type="text/javascript" src="../static/directory.js"></script>
+	<h1>我要投诉</h1>
 	<div class="Page">
-		<div class="wrapper">
-			<div>
-				<button type="button" id="post">我要发帖</button>
-			</div>
-			<br/><br/>
-			<hr>
-			<div class="second">
-				<p> <input class="one" type="text" name="topic" id="" value="" placeholder="请输入标题（0-50个字）" /></p>
-				<br/>
-				<p><textarea rows="33" cols="66" placeholder="投诉内容"></textarea></p>
-
-				<input type="file" class="form-control" id="file" name="file" th:οnchange="javascript:preview(this)">
-				<div id="preview">
-  		  　　		<img style="width: 100px; height: 100px;display:none" id="imgHidden" />
-				</div>
-				<br/><br/>
-			</div>
-			<div class="msg">
-				<ul>
-				</ul>
-			</div>
-		</div>
+		<form action="http://127.0.0.1:8000/report/complaints" method="post" >
+		<p class="two">请输入标题</p>
+		<input class="one" name="stu_id"  type="text" id="" value="" placeholder="无标题"></br>
+		<p class="two">请输入正文</p>
+		<textarea class="three" rows="10" cols="70" id="" value="" >请输入您想要吐槽的内容</textarea>
+		</br>
+		<p class="two">图片</p>
+		<input type="file" class="form-control" id="file" name="file" th:οnchange="javascript:preview(this)">
+		</br></br>
+		<button>点击发帖</button>
+		</form>
+		<script type="text/javascript" scr="https://apps.bdimg.com.libs/jquery/2.14/jquery.min.js"></script>
 	</div>
-	<div id="log"></div>
-	<!--div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
-		<script type="text/javascript" src="../../static/mainpage.js"></script>
-	</div-->
-	<script type="text/javascript" src="../../static/pagebuttom.js"></script>
 </body>
-
-<script>
-$("#post").on( "click" , function(e){
-	e.preventDefault() ;
-	var file = $("#file")[0].files;
-	if(file.length <= 0) {
-		file = "";
-	} else {
-		file = file[0];
-	}
-	var data = new FormData();
-	data.append("title", $("input[name=topic]").val());
-	data.append("text", $("textarea").val());
-	data.append("pic1", file);
-	$.ajax({
-		method : "POST", 
-		url : "/api/report/release",
-		data : data,
-		contentType : false,
-		processData : false,
-		success : function( data ){
-			if( data.result == "success" ){
-				alert('发帖成功，3秒后页面跳转');
-				setTimeout("$(location).attr('href', '/lf/');", 3000);
-				//window.navigate( `../lf/post/${data.id}` ) ;
-			} else {
-				alert(data.msg);
-			}
-		}
-	});
-	/*
-	$.post( "/api/lf/release" , data , function( data ){
-		if( data.result == "success" ){
-			alert('发帖成功，3秒后页面跳转');
-			setTimeout("$(location).attr('href', '/lf/');", 3000);
-			//window.navigate( `../lf/post/${data.id}` ) ;
-		} else {
-			alert(data.msg);
-		}
-	})
-	*/
-})
-</script>
+</html>

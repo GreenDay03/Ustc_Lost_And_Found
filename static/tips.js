@@ -15,16 +15,14 @@ function ShowQAndA( showarr ) {
 		document.write( "<h1>出错了！请刷新试试<h1>") ;
 		return ;
 	}
-	for( data in showarr.data ){
-		if( data.top === 1 ){
+	showarr.data.forEach( function( data ){
+		if( data.top === 1 )
 			ShowQ( data ) ;
-		}
-	}
-	for( data in showarr.data ){
-		if( data.top === 0 ){
+	} ) ;
+	showarr.data.forEach( function( data ){
+		if( data.top === 0 )
 			ShowQ( data ) ;
-		}
-	}
+	} ) ;
 }
 
 function loadrsc( ) {
@@ -50,11 +48,13 @@ $(function(){
 		if( currentpage == 1 ) ;
 		else currentpage-- ;
 		loadrsc( ) ;
+		$("input[name=currentpage]").val(currentpage) ;
 	}) ;
 	$("input[name=turnright]").on("click",function(e){
 		e.preventDefault() ;
 		if( currentpage == pages ) ;
 		else currentpage++ ;
 		loadrsc( ) ;
+		$("input[name=currentpage]").val(currentpage) ;
 	})
 })

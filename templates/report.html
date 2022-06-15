@@ -3,7 +3,7 @@
 <head>
 <title> USTC权益柜</title>
 <link rel="stylesheet" type="text/css" href="../static/sty.css">
-<script type="text/javascript" scr="https://apps.bdimg.com.libs/jquery/2.14/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery-2.2.1.min.js"></script>
 <meta http-equiv ="Content-Type" content="text/html;charset=UTF-8">
 <meta http-equiv="Pragma" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -27,10 +27,19 @@
               <a href="./report_release" class="main" style="display: block;background-color: #eeeeee;width: 100%;height: 100%;text-decoration: none;position: 0 0;text-align: center;color: #ffffff;" id="link_release"><br/>我要吐槽</a>
        </div>
 </div>
-
-<!-- <div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
-       <script type="text/javascript" src="../static/mainpage.js"></script>
-</div> -->
+<div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
+       <!-- <script type="text/javascript" src="../static/mainpage.js"></script> -->
+       <div class="items">
+              <ul class="items"></ul>
+       </div>
+</div>
+<div class="Page Turn" align="center">
+       <div style="margin: 0 auto;" align="center">
+              <input type="button" name="turnleft" value="<" />
+              <input type="button" name="currentpage" value="" disabled/>
+              <input type="button" name="turnright" value=">"/>
+       </div>
+</div>
 <script type="text/javascript" src="../static/pagebuttom.js"></script>
 </body>
 
