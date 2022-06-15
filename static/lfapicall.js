@@ -2,16 +2,6 @@ var pagenum = 1 ;
 var blogs = [] ;
 var redata ;
 
-// function showblogs( blogsarr ) {
-// 	let l = blogsarr.length ;
-// 	for( let i = 0 ; i < l ; i++ ){
-// 		// document.getElementsById('item'+i).innerHTML = 
-// 		// `<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>` ;
-// 		$(`#item${i}`).html(`<p>${blogsarr[i]['title']}</p><p>${blogsarr[i]['date_old']}-${blogsarr[i]['date_new']}</p><div style="margin-right:10px;display:inline-block">${blogsarr[i]['place']}</div><div>${blogsarr[i]['name']}</div>`) ;
-// 		$(`#item${i}`).attr( 'href' , `/${blogsarr[i]['id']}`) ;
-// 	}
-// }
-
 function showblogs( blogsarr ) {
 	let len = blogsarr.length ;
 	for( let i = 0 ; i < len ; i++ ) {
@@ -22,6 +12,9 @@ function showblogs( blogsarr ) {
 				<p>${blogsarr[i]['place']}</p>
 				<div>${blogsarr[i]['name']}</div>
 				<div><p>${blogsarr[i]['text']}</p></div></div>
+				<div class="half">
+					<img src="${blogsarr[i][]}"/>
+				</div>
 			</a>
 			`).appendTo( 'ul[class=items]' ) ;
 	}
