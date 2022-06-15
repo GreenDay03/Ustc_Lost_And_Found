@@ -5,7 +5,7 @@ var redata ;
 function showblogs( blogsarr ) {
 	let len = blogsarr.length ;
 	for( let i = 0 ; i < len ; i++ ) {
-		$(`
+		$(`<li class="items">
 			<a class="items" id="item${i}" href="${blogsarr[i]['id']}">
 				<div class="half">${blogsarr[i]['title']}
 				<p><input type="date" value="${blogsarr[i]['date']}" disabled/></p>
@@ -13,9 +13,24 @@ function showblogs( blogsarr ) {
 				<div>${blogsarr[i]['name']}</div>
 				<div><p>${blogsarr[i]['text']}</p></div></div>
 				<div class="half">
-					<img src="${blogsarr[i][]}"/>
+					${lambda=function( imgrc ){
+						if( imgrc === undefined )
+							return ' ' ;
+						return `<img src="/media/${imgrc}"/>`
+					}; lambda( blogsarr[i]['pic1'] )
+					+lambda( blogsarr[i]['pic2'] )
+					+lambda( blogsarr[i]['pic3'] ) }
+					${ function( imgrcs ){
+						let imgstr = '' ;
+						imgrcs.forEach( function( imgrc ){
+							if( imgrc === undefined )
+								return ;
+							else imgstr += `<img src="/media/${imgrc}"/>` ;
+						} );
+						return imgstr ;
+					}( blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3'] ) ; }
 				</div>
-			</a>
+			</a></li>
 			`).appendTo( 'ul[class=items]' ) ;
 	}
 }
