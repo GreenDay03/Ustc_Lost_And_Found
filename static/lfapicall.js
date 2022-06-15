@@ -13,13 +13,6 @@ function showblogs( blogsarr ) {
 				<div>${blogsarr[i]['name']}</div>
 				<div><p>${blogsarr[i]['text']}</p></div></div>
 				<div class="half">
-					${lambda=function( imgrc ){
-						if( imgrc === undefined )
-							return ' ' ;
-						return `<img src="/media/${imgrc}"/>`
-					}; lambda( blogsarr[i]['pic1'] )
-					+lambda( blogsarr[i]['pic2'] )
-					+lambda( blogsarr[i]['pic3'] ) }
 					${ function( imgrcs ){
 						let imgstr = '' ;
 						imgrcs.forEach( function( imgrc ){
