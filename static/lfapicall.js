@@ -16,7 +16,7 @@ function showblogs( blogsarr ) {
 	let len = blogsarr.length ;
 	for( let i = 0 ; i < len ; i++ ) {
 		$(`
-			<a class="items" id="item${i}" href="${blogsarr[i]['id']}]">
+			<a class="items" id="item${i}" href="${blogsarr[i]['id']}">
 				<div class="half">${blogsarr[i]['title']}
 				<p><input type="date" value="${blogsarr[i]['date']}" disabled/></p>
 				<p>${blogsarr[i]['place']}</p>
