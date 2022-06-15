@@ -42,11 +42,12 @@ class Release(ViewBase):
     def post(self, request):
         try:
             para = {
-                'author' : request.user.pk,
+                'author' : str(request.user.pk),
                 'title' : request.POST.get('title'),
                 'text' : request.POST.get('text'),
                 'time' : datetime.now(),
-                'importance': 0
+                'importace': 0,  # 请注意，我不小心打错字母了。。。。。
+                'reply' : ""
             }
             item = ReportPost(**para)
             '''
@@ -62,7 +63,8 @@ class Release(ViewBase):
                 "result" : "success", 
                 "id" : item.id
             })
-        except Exception:
+        except Exception as e:
+            print(e)
             return self.fail('日期格式不对')
 
 class Delete(ViewBase):

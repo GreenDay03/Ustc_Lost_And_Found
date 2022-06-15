@@ -36,9 +36,9 @@ class List(ViewBase):
             except ValueError:
                 return self.fail('日期格式不对')
         if request.GET.get('place'):
-            para['place'] = request.GET.get('place')
+            para['place__contains'] = request.GET.get('place')
         if request.GET.get('name'):
-            para['name'] = request.GET.get('name')
+            para['name__contains'] = request.GET.get('name')
         para['type'] = request.GET.get('type') or 'F'
         try:
             page = request.GET.get('page') or 1
