@@ -21,7 +21,7 @@ function showblogs( blogsarr ) {
 							else imgstr += `<img src="/media/${imgrc}"/>` ;
 						} );
 						return imgstr ;
-					}( blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3'] ) ; }
+					}( [ blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3'] ] ) ; }
 				</div>
 			</a></li>
 			`).appendTo( 'ul[class=items]' ) ;
