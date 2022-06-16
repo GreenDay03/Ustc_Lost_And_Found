@@ -6,26 +6,26 @@ var currentpage = 1 ;
 function showdata( dataarr ) {
 	dataarr.forEach( function( data ){
 		$(`<li class="items">
-			<a class="items" href="/${data.id}">
+			<a class="items" href="/">
 				<div class="half">
 					<p>${data.title}</p>
-					<p><input type="time" value="${data.time}" disabled/></p>
+					<p><input type="datetime" value="${data.time}" disabled/></p>
 					<p>${data.text}</p>
 					<p>${data.author}</p>
 				</div>
 				<div class="half">
 					<br/>
-					<p><input type="time" value="${data.reply_time}" disabled/></p>
+					<p><input type="datetime" value="${data.reply_time || "Null" }" disabled/></p>
 					<p>${data.reply}</p>
 				</div>
 			</a>
-			</li>`)
-	} ).appendTo( 'ul.items' )
+			</li>`).appendTo( '#main' )
+	} )
 }
 
 function loadrsc( order ) {
-	$( "ul.items a.items" ).remove( ) ;
-	$.get( {
+	$( "#main" ).children().remove( ) ;
+	$.get( "../api/report/list", {
 		"order": order ,
 		"page": currentpage 
 	} , function( data ){

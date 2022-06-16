@@ -46,7 +46,7 @@ class List(ViewBase):
         except Exception:
             return self.fail('页数格式不对')
         query = LFPost.objects.filter(**para).order_by('-time') #按照时间降序排列所有查询
-        tot = (query.count() + page - 1) // page
+        tot = (query.count() + self.PAGE - 1) // self.PAGE
         result['total_page'] = tot
         for i in range((page-1)*self.PAGE, min(page*self.PAGE,query.count())):
             rec = model_to_dict(query[i])  #rec表示一条记录。

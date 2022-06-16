@@ -22,11 +22,7 @@ function showblogs( blogsarr ) {
 							else imgstr += `<img src="/media/${imgrc}" width=150 height=150/>` ;
 						} );
 						return imgstr ;
-<<<<<<< HEAD
 					}( [blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3']] ) }
-=======
-					}( [ blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3'] ] ) ; }
->>>>>>> 9d471cf4a992523ae511b30fb1bd042d1bda05f3
 				</div>
 			</a></li>
 			`).appendTo( 'ul[class=items]' ) ;

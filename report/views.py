@@ -28,13 +28,14 @@ class List(ViewBase):
         except Exception:
             return self.fail('页数格式不对')
         query = ReportPost.objects.filter().order_by('-time') #按照时间降序排列所有查询
-        tot = (query.count() + page - 1) // page
+        tot = (query.count() + self.PAGE - 1) // self.PAGE
         result['total_page'] = tot
         for i in range((page-1)*self.PAGE, min(page*self.PAGE,query.count())):
             rec = model_to_dict(query[i])  #rec表示一条记录。
             del rec['pic1'], rec['pic2'], rec['pic3'], rec['importace'] #这几项都不要
             rec['star_num'] = 0
             rec['is_star'] = 0
+            rec['time'] = query[i].time.strftime("%Y-%m-%d %H:%M:%S")
             result['data'].append(rec)
         return JsonResponse(result)
 

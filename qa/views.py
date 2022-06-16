@@ -27,11 +27,12 @@ class List(ViewBase):
             return self.fail('输入数据不合法')
         para['type'] = request.GET.get('type') or 'Q'
         query = Qa.objects.filter(**para).order_by('-top','-time') #按照时间降序排列所有查询
-        tot = (query.count() + page - 1) // page
+        tot = (query.count() + self.PAGE - 1) // self.PAGE
         result['total_page'] = tot
         for i in range((page-1)*self.PAGE, min(page*self.PAGE,query.count())):
             rec = model_to_dict(query[i])  #rec表示一条记录。
             rec['top'] = int(rec['top'])
+            rec['time'] = query[i].time.strftime("%Y-%m-%d %H:%M:%S")
             result['data'].append(rec)  
         return JsonResponse(result)
 
