@@ -3,6 +3,7 @@ var blogs = [] ;
 var redata ;
 
 function showblogs( blogsarr ) {
+	$('ul[class=items]').children().remove()
 	let len = blogsarr.length ;
 	for( let i = 0 ; i < len ; i++ ) {
 		$(`<li class="items">
@@ -16,12 +17,12 @@ function showblogs( blogsarr ) {
 					${ function( imgrcs ){
 						let imgstr = '' ;
 						imgrcs.forEach( function( imgrc ){
-							if( imgrc === undefined )
+							if( !imgrc )
 								return ;
-							else imgstr += `<img src="/media/${imgrc}"/>` ;
+							else imgstr += `<img src="/media/${imgrc}" width=150 height=150/>` ;
 						} );
 						return imgstr ;
-					}( blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3'] ) ; }
+					}( [blogsarr[i]['pic1'] , blogsarr[i]['pic2'] , blogsarr[i]['pic3']] ) }
 				</div>
 			</a></li>
 			`).appendTo( 'ul[class=items]' ) ;

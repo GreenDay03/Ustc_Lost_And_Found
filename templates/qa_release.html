@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+	<title>
+		USTC权益柜
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="../../static/sty.css">
+	<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--script type="text/javascript" src="../static/releaseapicall.js"></script-->
+</head>
+<script>
+</script>
+<body id="MainPage">
+	<script type="text/javascript" src="../../static/directory.js"></script>
+	<div class="Page">
+		<div class="wrapper">
+			<div class="second">
+				<p> <input class="one" type="text" id="title" value=""> </p>
+				<br/>
+				<p> <textarea rows="33" cols="66" id="content"></textarea></p>
+				<br/><br/>
+                <p> 是否置顶？ </p>
+                <div style="padding: 0 100px 0 100px;" >
+                    <input type="radio" name="type" value="1"/>是
+                    <input type="radio" name="type" value="0" checked=true/>否
+                </div>
+			</div>
+			<div>
+				<button type="button" id="post">发布</button>
+			</div>
+			<div class="msg">
+				<ul>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="log"></div>
+	<!--div class="Page" style="background-color: #f8f8f8;" id="pagecontent">
+		<script type="text/javascript" src="../../static/mainpage.js"></script>
+	</div-->
+	<script type="text/javascript" src="../../static/pagebuttom.js"></script>
+</body>
+
+<script>
+$(function(){
+    var type = "A";
+    if(window.location.href.indexOf('tips') != -1) {
+        type = "T";
+        $("#title").attr("placeholder", "贴士标题")
+        $("#content").attr("placeholder", "贴士内容")
+    } else if(window.location.href.indexOf('qa') != -1) {
+        type = "Q";
+        $("#title").attr("placeholder", "问题")
+        $("#content").attr("placeholder", "回答")
+    } else {
+        alert('你这页面有问题啊！！！');
+        window.location.replace("/");
+        return; 
+    }
+    $("#post").on( "click" , function(e){
+        e.preventDefault() ;
+        var data = new FormData();
+        data.append("type", type);
+        data.append("q", $("#title").val());
+        data.append("a", $("#content").val());
+        data.append("top", $("input[name=type]:checked").val())
+        $.ajax({
+            method : "POST", 
+            url : "/api/post/release",
+            data : data,
+            contentType : false,
+            processData : false,
+            success : function( data ){
+                if( data.result == "success" ){
+                    alert('发帖成功，3秒后页面跳转');
+                    setTimeout("$(location).attr('href', '/lf/');", 3000);
+                    //window.navigate( `../lf/post/${data.id}` ) ;
+                } else {
+                    alert(data.msg);
+                }
+            }
+	});
+})
+});
+</script>

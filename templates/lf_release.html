@@ -13,10 +13,11 @@
     <title>
         BBS-发帖
     </title>
-    <script src="../static/js/jquery-2.2.1.min.js"></script>
-    <script src="../static/js/mzui_2.js"></script>
-    <link href="../static/mzui.min.css" rel="stylesheet">
-    <script src="../static/js/zepto.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/sty.css">
+    <script src="/static/js/jquery-2.2.1.min.js"></script>
+    <script src="/static/js/mzui_2.js"></script>
+    <link href="/static/mzui.min.css" rel="stylesheet">
+    <script src="/static/js/zepto.min.js"></script>
     <style>
         .vaptcha-init-main {
             display: table;
@@ -69,18 +70,19 @@
             text-decoration: underline;
         }
     </style>
-    <script src="../static/js/polite.js"></script>
+    <script src="/static/js/polite.js"></script>
 </head>
 
 <body style="font-family: 微软雅黑; padding: 0px; margin: 0px;" class="can-scroll">
+    <script type="text/javascript" src="/static/directory.js"></script>
     <form method="post" action="/api/auth/register/" id="form1">
         <div id="partial" class="container display fade in" data-find="_3" data-display-name="navs"
             style="padding-right: 0px; padding-left: 0px;">
             <div class="section" style="margin-bottom: 0px;">
-                <div class="heading">
-                    <div class="avatar circle primary"><i src="../static/icon.jpg"></i></div>
+                <!--div class="heading">
+                    <div class="avatar circle primary"><i src="/static/icon.jpg"></i></div>
                     <div class="title"><strong>USTC权益柜</strong></div>
-                </div>
+                </div-->
             </div>
             <section class="section">
                 <div id="Forget">
@@ -97,26 +99,28 @@
 					<option value="F">您是拾者</option>
 				</select>
 			</p>
-                        <div class="control has-label-left has-icon-right">
-                            <input name="place" type="text" id="txtUsername" class="input" placeholder="丢失地点">
+                        <div>
+                            <div class="control has-label-left has-icon-right">
+                                <input name="place" type="text" id="txtUsername" class="input" placeholder="丢失地点">
+                            </div>
+                            <div class="control has-label-left has-icon-right">
+                                <input name="date" type="date" id="date" class="input" placeholder="丢失时间">
+                            </div>
+            <div class="control has-label-left has-icon-right">
+                                <input name="item" type="text" id="item" class="input" placeholder="丢失物品">
+                            </div>                            
                         </div>
-                        <div class="control has-label-left has-icon-right">
-                            <input name="date" type="date" id="date" class="input" placeholder="丢失时间">
-                        </div>
-		<div class="control has-label-left has-icon-right">
-                            <input name="item" type="text" id="item" class="input" placeholder="丢失物品">
-                        </div>
-                        <div class="control has-label-left has-icon-right">
-                            <input name="contact" type="text" id="contact" class="input" placeholder="联系方式">
-                        </div>
-
-                        <p>请在下方描述失物细节<textarea rows="30" style="width: 100%;"></textarea></p>
+                        <br> <br>
+                        <sapn>
+                            <span>请在下方描述失物细节 </span>
+                            <textarea rows="30" style="width: 100%;"></textarea>
+                        </sapn>
 
                         <input type="file" class="form-control" id="file" name="file" th:οnchange="javascript:preview(this)">
 				<div id="preview">
   		  　　		<img style="width: 100px; height: 100px;display:none" id="imgHidden" />
 				</div>
-                        <button type="submit"  id=""
+                        <button type="submit"  id="post"
                             class="btn primary" style="width: 100%;"> 发帖 </button>
     </form>
                         <button type="button" class="btn text-primary" style="width: 100%; margin-top: 5px;"
@@ -130,8 +134,8 @@
                 </center>
             </div>
         </div>
-        <!--script src="../static/js/base64.js"></script-->
-        <script src="../static/js/jquery-2.2.js"></script>
+        <!--script src="/static/js/base64.js"></script-->
+        <script src="/static/js/jquery-2.2.js"></script>
 </body>
 
 <script>
@@ -161,7 +165,7 @@ $("#post").on( "click" , function(e){
             if( data.result == "success" ){
                 alert('发帖成功，3秒后页面跳转');
                 setTimeout("$(location).attr('href', '/lf/');", 3000);
-                //window.navigate( `../lf/post/${data.id}` ) ;
+                //window.navigate( `/lf/post/${data.id}` ) ;
             } else {
                 alert(data.msg);
             }
@@ -172,7 +176,7 @@ $("#post").on( "click" , function(e){
         if( data.result == "success" ){
             alert('发帖成功，3秒后页面跳转');
             setTimeout("$(location).attr('href', '/lf/');", 3000);
-            //window.navigate( `../lf/post/${data.id}` ) ;
+            //window.navigate( `/lf/post/${data.id}` ) ;
         } else {
             alert(data.msg);
         }
