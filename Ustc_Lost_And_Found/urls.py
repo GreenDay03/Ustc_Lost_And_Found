@@ -43,7 +43,7 @@ urlpatterns = [
     path('forget/', views.forget),
     path('qa/qa_release', views.qa_release),
     path('tips/tips_release', views.qa_release),
-    path('report/report_release', views.qa_release),
+    path('report/report_release', views.report_release),
     re_path('^post/(?P<pk>.*)$', login_required(QaQuery.as_view())),
     re_path('^lf/(?P<pk>.*)$', login_required(LfQuery.as_view()))
     #url(r'^static/(?P<path>.*)$',serve,{'document_root': settings.STATIC_ROOT}),

@@ -1,5 +1,4 @@
 from datetime import date, datetime, timedelta
-from msilib.schema import File
 import random
 from django.forms import model_to_dict
 from django.http import JsonResponse
@@ -173,7 +172,7 @@ class UserQuery(ViewBase):
         ret['username'] = account.first_name
         ret['realname'] = account.last_name
         ret['qq'] = account.qq
-        ret['avatar'] = str(account.avatar)
+        ret['avatar'] = str(account.avatar) or 'default.ico'
         return JsonResponse(dict_clear(ret))
 
 class MyQuery(UserQuery):
