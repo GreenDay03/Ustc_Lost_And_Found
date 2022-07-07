@@ -39,3 +39,11 @@ def qa_release(request):
 @login_required
 def report_release(request):
     return render(request, 'report_release.html')
+
+from au.views import UserQuery
+import json
+
+user_query = UserQuery()
+@login_required
+def show_user(request, pk):
+    return render(request, 'new_user.html', json.loads(user_query.get(request, pk).content))

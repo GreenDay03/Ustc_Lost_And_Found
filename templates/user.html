@@ -146,6 +146,10 @@
             <input type="email" id="id" placeholder="用户ID" readonly="readonly">
         </label>
         <label>
+            <span>用户类型</span>
+            <input type="email" id="type" placeholder="用户类型" readonly="readonly">
+        </label>
+        <label>
             <span>科大邮箱</span>
             <input type="email" id="email" placeholder="科大邮箱" readonly="readonly">
         </label>
@@ -188,6 +192,7 @@
         }
         $.get("../api/auth/me", function (data) {
             $("#email").val(go(data.email));
+            $("#type").val(go(data.type))
             $("#realname").val(go(data.realname));
             $("#qq").val(go(data.qq));
             $("#stu_id").val(go(data.stu_id));

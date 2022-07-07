@@ -8,10 +8,10 @@ function showdata( dataarr ) {
 		$(`<li class="items">
 			<a class="items" href="/">
 				<div class="half">
-					<p>${data.title}</p>
-					<p><input type="datetime" value="${data.time}" disabled/></p>
-					<p>${data.text}</p>
-					<p>${data.author}</p>
+					<p> <font color="red" size="8"> ${data.title} </font> </p>
+					<p> <font color="blue" size="5"> 时间 </font> : <input type="datetime" value="${data.time}" disabled/></p>
+					<p> <font color="blue" size="5"> 内容 </font> : ${data.text}</p>
+					<p> <font color="blue" size="5"> 作者 </font> : ${data.author}</p>
 				</div>
 				<div class="half">
 					<br/>

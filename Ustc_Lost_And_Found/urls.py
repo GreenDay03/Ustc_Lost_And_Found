@@ -45,7 +45,8 @@ urlpatterns = [
     path('tips/tips_release', views.qa_release),
     path('report/report_release', views.report_release),
     re_path('^post/(?P<pk>.*)$', login_required(QaQuery.as_view())),
-    re_path('^lf/(?P<pk>.*)$', login_required(LfQuery.as_view()))
+    re_path('^lf/(?P<pk>.*)$', login_required(LfQuery.as_view())),
+    re_path('^user/(?P<pk>.*)$', views.show_user),
     #url(r'^static/(?P<path>.*)$',serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

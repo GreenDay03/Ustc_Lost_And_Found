@@ -54,6 +54,10 @@ class List(ViewBase):
             rec['pic1'] = str(query[i].pic1)
             rec['pic2'] = str(query[i].pic2)
             rec['pic3'] = str(query[i].pic3)
+            if str(request.user.id) == query[i].author or request.user.is_superuser:
+                rec['can_delete'] = '1'
+            else:
+                rec['can_delete'] = '0'
             #del rec['pic1'], rec['pic2'], rec['pic3']  #这几项都不要
             result['data'].append(rec)
         return JsonResponse(result)

@@ -173,6 +173,7 @@ class UserQuery(ViewBase):
         ret['realname'] = account.last_name
         ret['qq'] = account.qq
         ret['avatar'] = str(account.avatar) or 'default.ico'
+        ret['type'] = '管理员' if account.is_superuser else '普通用户'
         return JsonResponse(dict_clear(ret))
 
 class MyQuery(UserQuery):
